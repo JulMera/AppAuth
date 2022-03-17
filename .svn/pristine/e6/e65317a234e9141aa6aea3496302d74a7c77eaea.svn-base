@@ -1,0 +1,756 @@
+webpackJsonp([9],{
+
+/***/ 703:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(719);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var LoginPageModule = (function () {
+    function LoginPageModule() {
+    }
+    return LoginPageModule;
+}());
+LoginPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */]
+        ],
+    })
+], LoginPageModule);
+
+//# sourceMappingURL=login.module.js.map
+
+/***/ }),
+
+/***/ 719:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_http_http__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_utils_utils__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_tasks_service_tasks_service__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_dba_dba__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_barcode_scanner__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_fingerprint_aio__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_network__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_touch_id__ = __webpack_require__(318);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var LoginPage = (function () {
+    function LoginPage(/*private device: Device,*/ navCtrl, navParams, translateService, loadingCtrl, storage, http, utils, alertCtrl, tasksService, dba, barcodeScanner, faio, network, toast, faceID, platform_R) {
+        //this.contenedorBtn = true;
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.translateService = translateService;
+        this.loadingCtrl = loadingCtrl;
+        this.storage = storage;
+        this.http = http;
+        this.utils = utils;
+        this.alertCtrl = alertCtrl;
+        this.tasksService = tasksService;
+        this.dba = dba;
+        this.barcodeScanner = barcodeScanner;
+        this.faio = faio;
+        this.network = network;
+        this.toast = toast;
+        this.faceID = faceID;
+        this.platform_R = platform_R;
+        this.lang = "en_us";
+        this.lenguajeAPP = "";
+        this.idioms = [];
+        this.nome = '';
+        this.contadorIntentos = 0;
+        this.isBtnEnabled = true;
+        this.isBtnEnabledAfi = false;
+        this.huella = false;
+        this.face_ID = false;
+        this.red = true;
+        //para encriptar password
+        //private CryptoJS: any =  require('crypto-js');
+        this.SECERET_KEY = 'e2eworks';
+        this.contenedorBtn = true;
+        this.tasks = [];
+        this.emisorApp = this.utils.variablesGlobales("emisorApp");
+        this.appProcess = this.utils.variablesGlobales("appProcess");
+        this.platform_R.ready().then(function () {
+            //SE CONSULTA QUE EL DISPOSITIVO TENGA FINGERPRINT ó FACEID
+            if (_this.platform_R.is('android')) {
+                _this.faio.isAvailable().then(function (result) {
+                    if (result === "finger") {
+                        _this.huella = true;
+                    }
+                    else if (result === "face") {
+                        _this.face_ID = true;
+                    }
+                });
+            }
+            else {
+                _this.faceID.isAvailable().then(function (res) { return _this.huella = true; }, function (err) { return console.log('Error al cargar la huella', err); });
+            }
+            // Metodo para verificar el estado de la Red
+            // NOO! ESTA CONECTADO A RED
+            _this.network.onDisconnect().subscribe(function () {
+                // alert("Red no disponible");
+                _this.red = false;
+                _this.toast.create({
+                    message: "Network Disconnected",
+                    duration: 3000
+                }).present();
+            });
+            // Metodo para verificar el estado de la Red
+            // ESTA CONECTADO A RED
+            _this.network.onConnect().subscribe(function () {
+                //alert("Se conecto a la Red");
+                _this.red = true;
+                _this.toast.create({
+                    message: "Network connected",
+                    duration: 3000,
+                }).present();
+            });
+            _this.dba.getStatusDataBase().subscribe(function (rdy) {
+                //this.searchIdDevice();
+                _this.dba.obtenerD1();
+                /// this.utils.searchIdDevice();
+            });
+            // Obtencion de la longitud y la latitud de la persona
+            _this.storage.get('latitud').then(function (lat) {
+                _this.storage.get('longitud').then(function (lon) {
+                    if (lat != null && lon != null) {
+                        _this.latitud = lat;
+                        _this.longitud = lon;
+                    }
+                });
+            });
+        });
+        //Metodo para cuando se le de back al celular cierre la app
+        //this.utils.exitApp("LoginPage");
+        //alert("constructor");
+        //this.idioms = [];
+        /*this.idioms = [
+          {
+            value: 'es_co',
+            label: 'Español',
+          },
+          {
+            value: 'en_us',
+            label: 'English'
+          }
+        ];
+        this.storage.set('lenguaje', this.translateService.getDefaultLang());
+        
+        this.lang = this.utils.getLanguage();
+        */
+        //this.utils.clearVariableSesion();
+        //this.storage.remove('procesoOTP');
+        //this.storage.clear();
+    }
+    LoginPage.prototype.choose = function (lang) {
+        //alert(lang);
+        this.translateService.use(lang);
+        this.storage.set('lenguaje', lang);
+        this.lang = lang;
+    };
+    LoginPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        //alert("ionViewDidLoad");
+        //this.idioms = [];
+        this.idioms = [
+            {
+                value: 'es_co',
+                label: 'Español',
+            },
+            {
+                value: 'en_us',
+                label: 'English'
+            }
+        ];
+        this.storage.get('lenguaje').then(function (val) {
+            //alert("lenguaje"+val);
+            if (val == null) {
+                //alert("1");
+                _this.translateService.setDefaultLang('en_us');
+                _this.translateService.use('en_us');
+                _this.storage.set('lenguaje', val);
+            }
+            else {
+                //alert("2");
+                _this.translateService.setDefaultLang(val);
+                _this.translateService.use(val);
+                _this.storage.set('lenguaje', val);
+            }
+        });
+        //this.translateService.setDefaultLang('en_us');
+        //this.translateService.use('en_us');
+        //SE CONSULTA QUE EL DISPOSITIVO TENGA FINGERPRINT ó FACEID
+        this.faio.isAvailable().then(function (result) {
+            if (result === "finger") {
+                _this.huella = true;
+            }
+            else if (result === "face") {
+                _this.face_ID = true;
+            }
+        });
+        this.storage.get('lenguaje').then(function (val) {
+            //alert("lenguaje"+val);
+            if (val != null) {
+                _this.lang = val;
+            }
+        });
+        //this.dba.searchIdDevice(this.consultaDeviceId);
+        //this.searchIdDevice();
+    };
+    LoginPage.prototype.searchIdDevice = function () {
+        var _this = this;
+        var sql = 'select optional01 from USUARIO where time_01 = (select MAX(time_01) from USUARIO) ';
+        var response = this.dba.executeQuery(sql);
+        response.then(function (data) {
+            console.log("DATA " + JSON.stringify(data));
+            if (data.rows) {
+                if (data.rows.length > 0) {
+                    for (var i = 0; i < data.rows.length; i++) {
+                        _this.consultaDeviceId = (data.rows.item(i).optional01);
+                    }
+                }
+            }
+        })
+            .catch(function (e) { return console.log("Error al consultar " + JSON.stringify(e)); });
+        return this.consultaDeviceId;
+    };
+    LoginPage.prototype.login = function () {
+        this.isBtnEnabled = false;
+        this.isBtnEnabledAfi = true;
+        //if(this.red == true){
+        if (this.usuario == null && this.pass == null) {
+            //alert("{{ 'Login.alertUser' | translate }}");
+            //alert("Debe ingresar la contraseña");
+            this.presentAlert();
+            this.isBtnEnabled = true;
+            this.isBtnEnabledAfi = false;
+        }
+        else {
+            this.lenguague();
+            this.validateUser();
+        }
+        /*}
+        else{
+          this.isBtnEnabled = true;
+          this.utils.presentAlert("Login.red");
+        }*/ // OJO  descomentar esta validacion despues que llegue el internet 17 de septiembre de 2019
+    };
+    LoginPage.prototype.lenguague = function () {
+        var _this = this;
+        this.storage.get('lenguaje').then(function (val) { _this.lang = val; });
+    };
+    LoginPage.prototype.validateUser = function () {
+        var _this = this;
+        var aesUtil = new AesUtil(128, 1000);
+        String.prototype.trim = function () { return this.replace(/^\s+|\s+$/g, ""); };
+        var use = this.usuario.trim().toUpperCase();
+        //var command = 'APPLOGIN';
+        var userLogin = use;
+        //var passw = this.utils.encodePass(this.pass);
+        //var user = this.utils.encodeUser(userLogin);
+        var user = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, userLogin);
+        //alert("usuario: "+use+"\n"+"encrip: "+user);
+        var passw = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, this.pass);
+        this.storage.set("userName", userLogin);
+        this.storage.set("nameUser", user);
+        this.storage.set("password", passw);
+        /*try {
+          this.device.model = this.device.model.replace(",", ".");
+          this.device.version = this.device.version.replace(",", ".");
+        } catch (error) {
+          this.utils.presentAlert("Error Change punto - coma");
+        }
+    
+        var newModel: string = this.utils.changePuntoComa(this.device.model);
+    
+        this.data = '{"iddev":"' + this.device.uuid + '",' +
+          '"model":"' + newModel + '",' +
+          '"cordova":"' + this.device.cordova + '",' +
+          '"plataform":"' + this.device.platform + '",' +
+          '"version":"' + this.device.version + '",' +
+          '"manufacturer":"' + this.device.manufacturer + '",' +
+          '"serial":"' + this.device.serial + '",' +
+          '"isVirtual":"' + this.device.isVirtual + '"}';*/
+        this.utils.userLogin = userLogin;
+        //this.utils.searchIdDevice();
+        this.utils.searchIdDevice().then(function (idFinger) {
+            _this.utils.deviceId = idFinger;
+            _this.data = _this.utils.infoDevice();
+            console.log("mensaje=>dispositivo " + JSON.stringify(_this.data));
+            _this.encripData = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, JSON.stringify(_this.data));
+            var iddevEnc = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, idFinger);
+            /*this.encripData = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, this.data);
+            var iddevEnc: string = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, this.device.uuid);*/
+            //Datos del dispositivo
+            _this.jsonDataDevice =
+                {
+                    "userName": user,
+                    "userPasw": passw,
+                    "company": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "1"),
+                    "appAuthType": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "AUTH"),
+                    "appProcess": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.appProcess),
+                    "device": {
+                        "data": _this.encripData,
+                        "iddev": iddevEnc
+                    },
+                    "authType": "AUTH",
+                    "reasonCalled": "auth_valUser",
+                    "scoreRiskCustomer": "0",
+                    "geoRefLatitude": _this.latitud,
+                    "geoRefLongitude": _this.longitud,
+                    "deviceTrustId": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, idFinger),
+                    "deviceTrustData": _this.encripData,
+                    "internalUserName": _this.emisorApp,
+                    "idkey": _this.http.idkey
+                };
+            /*
+                this.jsonDataDevice2 =
+                {
+                  "userName": user,
+                  "userPasw": passw,
+                  "device": {
+                    "iddev": this.device.uuid,
+                    "model": newModel,
+                    "cordova": this.device.cordova,
+                    "plataform": this.device.platform,
+                    "version": this.device.version,
+                    "manufacturer": this.device.manufacturer,
+                    "serial": this.device.serial,
+                    "isVirtual": this.device.isVirtual
+                  }
+                }
+                 this.storage.set("infoDevice", this.jsonDataDevice2);
+                */
+            _this.storage.set("infoDevice", _this.data);
+            var urlLogin = "security/login/";
+            console.log("mensaje=>this.jsonDataDevice=" + _this.jsonDataDevice);
+            _this.http.callServer(_this.jsonDataDevice, urlLogin).then(function (res) {
+                //alert(res);
+                _this.message = JSON.stringify(res);
+                console.log("mensaje=>this.message=" + _this.message);
+                //messageId
+                //alert("Datos del login, AUTHTYPE: "+res.authType);
+                //Se guarda en sesion los datos que llegan por JSON
+                _this.storage.set('OPTIONAL01', res.optional01);
+                _this.storage.set('DELIVERYCH', res.deliveryCh);
+                _this.storage.set('RESPONSECH', res.responseCh);
+                _this.storage.set('AUTHTYPE', res.authType);
+                _this.storage.set('REQUESTID', res.requestId);
+                _this.storage.set('AUTHDATA', res.authData);
+                _this.storage.set('FROM_LOGIN', true);
+                _this.storage.set('MESSAGEID', res.messageId);
+                _this.storage.set('msgjsessionId', res.msgjsessionId);
+                _this.usuario = "";
+                _this.pass = "";
+                if (res != '' && typeof res !== "undefined") {
+                    _this.isBtnEnabled = true;
+                    _this.isBtnEnabledAfi = false;
+                    try {
+                        if (res.message.code == "000") {
+                            _this.dba.createDataBaseFile();
+                            _this.storage.set('MESSAGEID', res.messageId);
+                            _this.storage.set('msgjsessionId', res.msgjsessionId);
+                            var respuesta = _this.utils.decodeText(res.key);
+                            _this.http.salt = respuesta.split(",")[0];
+                            _this.http.iv = respuesta.split(",")[1];
+                            _this.http.passphrase = respuesta.split(",")[2];
+                            _this.http.idkey = respuesta.split(",")[3];
+                            _this.dba.deleteDeviceConfig();
+                            _this.dba.saveDeviceConfig(_this.http.idkey, _this.http.salt, _this.http.iv, _this.http.passphrase);
+                            //this.navCtrl.push('MenuPage'); 
+                            _this.navCtrl.push('BandejaMenuPage');
+                        }
+                        else {
+                            _this.utils.errorControl(res.message.code);
+                        }
+                    }
+                    catch (error) {
+                        //this.utils.presentAlert("mensajeErrorControlado"+error); 
+                        _this.utils.presentAlert("mensajeConexion");
+                    }
+                }
+                else {
+                    //alert("Nunca entra 1");
+                    _this.storage.set('user', user);
+                    _this.storage.set('sessionId', res.sessionId);
+                    _this.utils.setSessionId(res.sessionId);
+                    //alert("paso1 "+res.lista1);     
+                    _this.storage.set('commands', res.lista1);
+                    _this.utils.setCommands(res.lista1);
+                    _this.storage.set('usuario', res.optional1);
+                    _this.storage.set('fecha', res.optional2);
+                    //this.navCtrl.push('MenuPage'); //Se cambio aqui 
+                    //this.navCtrl.push('InboxPage');
+                    _this.navCtrl.push('BandejaMenuPage');
+                }
+            }, function (error) {
+                _this.isBtnEnabled = true;
+                _this.isBtnEnabledAfi = false;
+                _this.utils.presentAlert("mensajeConexion");
+                /*   console.log(error);
+                   if (error) {
+                     this.utils.presentAlert("mensajePeticion"+error);
+                   }
+                 })
+                 .catch(error => {
+                   if (error) {
+                     this.utils.presentAlert("mensajePeticion"+error);
+                   }*/
+            });
+        });
+    };
+    //Logueo con huella
+    LoginPage.prototype.loginFingerPrint = function () {
+        var _this = this;
+        this.utils.userLogin = "FINGER";
+        if (this.red == true) {
+            this.fingerprintOptions = {
+                clientId: 'touchLogin',
+                clientSecret: 'password',
+            };
+            if (this.platform_R.is('android')) {
+                this.faio.isAvailable().then(function (result) {
+                    if (result === "finger" || result === "face") {
+                        _this.faio.show({
+                            clientId: 'touchLogin',
+                            clientSecret: 'password',
+                            // disableBackup: true, //Only for Android(optional)
+                            localizedFallbackTitle: 'Use Pin',
+                            localizedReason: 'Please Authenticate' //Only for iOS
+                        })
+                            .then(function (result) {
+                            //Verificamos que hay match
+                            if (result == "Success") {
+                                _this.callLoginFingerServices();
+                            }
+                            if (result.withFingerprint || result.Success) {
+                                _this.callLoginFingerServices();
+                            }
+                            _this.faceID.verifyFingerprint('Scan your Fingerprint please')
+                                .then(function (res) {
+                                return _this.callLoginFingerServices();
+                            }, function (err) { return console.log('Error ', err); });
+                        });
+                    }
+                    else {
+                        _this.utils.presentAlert("Login.red");
+                    }
+                });
+            }
+            else {
+                this.faceID.verifyFingerprint('Scan your Fingerprint please').then(function (res) { return _this.callLoginFingerServices(); }, function (err) { return console.log('Error al llamar el servivio', err); });
+            }
+        }
+    };
+    LoginPage.prototype.callLoginFingerServices = function () {
+        var _this = this;
+        this.dba.searchIdFinger().then(function (idFinger) {
+            console.log("mensaje paso 0");
+            // this.consultaDeviceId = this.dba.searchIdDevice("optional");
+            _this.consultaDeviceId = idFinger;
+            _this.utils.deviceId = idFinger;
+            var aesUtil = new AesUtil(128, 1000);
+            /*  var temp: string;
+             // temp = this.device.model;
+              var newModel: string;
+              newModel = this.utils.changePuntoComa(temp);*/
+            //var envioDeviceID = this.utils.encodeUser(this.consultaDeviceId);
+            //this.envioDeviceID = this.utils.encodeUser(this.consultaDeviceId);
+            //alert("login this.consultaDeviceId: "+this.consultaDeviceId);
+            console.log("mensaje=>userName:" + _this.consultaDeviceId);
+            console.log("mensaje=>deviceId huella login " + idFinger);
+            console.log("mensaje paso 1");
+            _this.utils.userLogin = "FINGER";
+            _this.data = _this.utils.infoDevice();
+            console.log("mensaje paso 2");
+            _this.encripData = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, JSON.stringify(_this.data));
+            console.log("mensaje paso 3");
+            var iddevEnc = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, idFinger);
+            console.log("mensaje paso 4");
+            _this.envioDeviceID = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, idFinger);
+            console.log("mensaje paso 5");
+            //Datos del dispositivo
+            _this.jsonDataDevice =
+                {
+                    "userName": _this.envioDeviceID,
+                    "userPasw": _this.envioDeviceID,
+                    "company": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "1"),
+                    "appAuthType": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "AUTH"),
+                    "appProcess": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.appProcess),
+                    "device": {
+                        "data": _this.encripData,
+                        "iddev": iddevEnc
+                    },
+                    "authType": "AUTH",
+                    "reasonCalled": "auth_finger",
+                    "scoreRiskCustomer": "0",
+                    "geoRefLatitude": _this.latitud,
+                    "geoRefLongitude": _this.longitud,
+                    "deviceTrustId": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, idFinger),
+                    "deviceTrustData": _this.encripData,
+                    "internalUserName": _this.emisorApp,
+                    "idkey": _this.http.idkey
+                };
+            _this.storage.set("nameUser", _this.envioDeviceID);
+            var urlLogin = "security/loginFinger/";
+            console.log("mensaje paso 6");
+            _this.http.callServer(_this.jsonDataDevice, urlLogin).then(function (res) {
+                _this.message = JSON.stringify(res);
+                _this.storage.set('MESSAGEID', res.messageId);
+                _this.storage.set('msgjsessionId', res.msgjsessionId);
+                //alert("FINGER inbox: "+this.message); 
+                //alert("usuario finger: "+this.utils.decodeText(res.optional02));
+                var user = "";
+                try {
+                    //alert("finger: "+res.optional02);
+                    user = _this.utils.decodeText(res.optional02);
+                    //alert("usuario finger: "+user);
+                    var encripUser = user; //this.utils.encodeUser(user);
+                }
+                catch (error) {
+                    console.log("Error!.." + error);
+                }
+                //messageId
+                //Se guarda en sesion los datos que llegan por JSON
+                _this.storage.set('user', user);
+                _this.storage.set('OPTIONAL01', res.optional01);
+                _this.storage.set('DELIVERYCH', res.deliveryCh);
+                _this.storage.set('RESPONSECH', res.responseCh);
+                _this.storage.set('AUTHTYPE', res.authType);
+                _this.storage.set('REQUESTID', res.requestId);
+                _this.storage.set('AUTHDATA', res.authData);
+                _this.storage.set('FROM_LOGIN', true);
+                //alert("Lo que le llega al inbox: "+ res.authType);
+                // alert("MESSAGE ID finger: "+ res.messageId+ "\nauthTYPE: "+res.authType);
+                _this.storage.set('MESSAGEID', res.messageId);
+                _this.storage.set('msgjsessionId', res.msgjsessionId);
+                //alert("MessageID Login: "+res.messageId);
+                _this.storage.set('userName', encripUser);
+                _this.storage.set('sessionId', res.sessionId);
+                _this.utils.setSessionId(res.sessionId);
+                //alert("paso1 "+res.lista1);     
+                _this.storage.set('commands', res.lista1);
+                _this.utils.setCommands(res.lista1);
+                _this.storage.set('usuario', res.optional1);
+                _this.storage.set('fecha', res.optional2);
+                _this.usuario = "";
+                _this.pass = "";
+                if (res != '' && typeof res !== "undefined") {
+                    _this.isBtnEnabled = true;
+                    _this.isBtnEnabledAfi = false;
+                    //this.utils.alertServidor(this.message.code);
+                    try {
+                        if (res.message.code == "000") {
+                            var respuesta = _this.utils.decodeText(res.key);
+                            _this.http.salt = respuesta.split(",")[0];
+                            _this.http.iv = respuesta.split(",")[1];
+                            _this.http.passphrase = respuesta.split(",")[2];
+                            _this.http.idkey = respuesta.split(",")[3];
+                            _this.dba.deleteDeviceConfig();
+                            _this.dba.saveDeviceConfig(_this.http.idkey, _this.http.salt, _this.http.iv, _this.http.passphrase);
+                            //this.dba.createDataBaseFile();
+                            _this.navCtrl.push('BandejaMenuPage');
+                        }
+                        else {
+                            _this.utils.errorControl(res.message.code);
+                        }
+                    }
+                    catch (error) {
+                        //this.utils.presentAlert("mensajeErrorControlado"+error);
+                        _this.utils.presentAlert("mensajeConexion");
+                    }
+                }
+                else {
+                    //alert("Nunca entra 2");
+                    _this.storage.set('user', user);
+                    _this.storage.set('sessionId', res.sessionId);
+                    _this.utils.setSessionId(res.sessionId);
+                    //alert("paso1 "+res.lista1);     
+                    _this.storage.set('commands', res.lista1);
+                    _this.utils.setCommands(res.lista1);
+                    _this.storage.set('usuario', res.optional1);
+                    _this.storage.set('fecha', res.optional2);
+                    //this.navCtrl.push('MenuPage'); //Se cambio aqui
+                    _this.navCtrl.push('BandejaMenuPage');
+                }
+            }, function (error) {
+                _this.isBtnEnabled = true;
+                _this.isBtnEnabledAfi = false;
+                _this.utils.presentAlert("mensaje.error");
+                /* console.log(error);
+                 if (error) {
+                   this.utils.presentAlert("mensaje.error");
+                 }
+                 else {
+                   this.utils.presentAlert("Error");
+                 }*/
+            });
+        });
+    };
+    //Metodo del alertController para obtener info de los property
+    LoginPage.prototype.presentAlert = function () {
+        var alertTitle;
+        this.translateService.get('Login.alertValidate').subscribe(function (value) {
+            alertTitle = value;
+        });
+        var alert = this.alertCtrl.create({
+            title: this.utils.getMessageLanguage("logout.message"),
+            message: alertTitle,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    LoginPage.prototype.afiliacion = function () {
+        console.log("mensaje=> entro afiliacion " + this.red);
+        if (this.red == true) {
+            console.log("mensaje=> entro afiliacion1");
+            this.navCtrl.push("RegistroAfiliacionPage", { lenguajeSeleccionadoLogin: this.lang });
+        }
+        else {
+            console.log("mensaje=> entro afiliacion3");
+            this.utils.presentAlert("Login.red");
+        }
+        console.log("mensaje=> entro afiliacion4");
+    };
+    LoginPage.prototype.ionViewWillUnload = function () {
+        this.isBtnEnabledAfi = false;
+    };
+    LoginPage.prototype.home = function () {
+        this.utils.methodAesUtils();
+    };
+    LoginPage.prototype.home1 = function () {
+        this.utils.encrypMasterKey();
+    };
+    LoginPage.prototype.home2 = function () {
+        this.utils.decryptMasterKey();
+    };
+    LoginPage.prototype.drop = function () {
+        var _this = this;
+        var confirm = this.alertCtrl.create({
+            title: this.utils.getMessageLanguage("Informacion"),
+            message: this.utils.getMessageLanguage("Desea continuar?"),
+            buttons: [
+                {
+                    text: this.utils.getMessageLanguage("Cancelar"),
+                    handler: function () {
+                    }
+                },
+                {
+                    text: this.utils.getMessageLanguage("Aceptar"),
+                    handler: function () {
+                        _this.dba.dropTable();
+                    }
+                }
+            ]
+        });
+        confirm.present();
+    };
+    LoginPage.prototype.presentLoading = function () {
+        var loading = this.loadingCtrl.create({
+            content: ''
+        });
+        loading.present();
+        setTimeout(function () {
+            loading.dismiss();
+        }, 6500);
+    };
+    LoginPage.prototype.reiniciarSesion = function () {
+        this.utils.reload();
+    };
+    //metodo para renovar llaves
+    LoginPage.prototype.callKeysDevice = function (typeLogin) {
+        var _this = this;
+        //se consultan las llaves del dispositivo para renovar
+        this.dba.searchDeviceConfig().then(function (configDevice) {
+            if (configDevice != "") {
+                console.log("mensaje=> parametrizacion:" + JSON.stringify(configDevice));
+                _this.configDeviceDb = configDevice;
+                _this.http.salt = _this.configDeviceDb.DATO1;
+                _this.http.iv = _this.configDeviceDb.DATO2;
+                _this.http.passphrase = _this.configDeviceDb.DATO3;
+                _this.http.idkey = _this.configDeviceDb.ID;
+                if (typeLogin == "huella") {
+                    _this.loginFingerPrint();
+                }
+                else {
+                    _this.login();
+                }
+            }
+            else {
+                _this.utils.presentAlert("keys.recuperar");
+            }
+        });
+    };
+    return LoginPage;
+}());
+LoginPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-login',template:/*ion-inline-start:"D:\PYT\development2\AppAuthenticator\src\pages\login\login.html"*/'<ion-header>\n</ion-header>\n\n<ion-content class="todo" (ionScroll)="reiniciarSesion()" (click)="reiniciarSesion()">\n\n    <br><br><br><br>\n\n    <ion-img style="width: 280px;\n                  height: 100px; \n                  left: 15%;\n                  top: 80px;    \n                  position: absolute;\n                  margin-left: auto;\n                  margin:10px;\n                  display:block; \n                  background: #F0F2F4;" src="assets/img/new/LOGO.svg">\n    </ion-img>\n\n\n    <br><br><br><br><br><br><br><br>\n\n    <ion-card>\n        <ion-card-content>\n\n            <div>\n                <ion-list>\n                    <ion-item>\n                        <ion-label class="colorGris">{{ \'Login.idioma\' | translate }}</ion-label>\n                        <ion-select (ionChange)="choose($event)">\n                            <ion-option *ngFor="let item of idioms" [value]="item.value" class="colorGris">\n                                {{ item.label }}\n                            </ion-option>\n                        </ion-select>\n                    </ion-item>\n                </ion-list>\n\n                <div class="inicioSesion">\n                    {{ \'login.inicioSesion\' | translate }}\n                </div>\n                <div class="data">\n                    {{ \'login.inicioSesion2\' | translate }}\n                </div>\n\n                <br>\n\n                <table width="100%">\n                    <tr>\n                        <td>\n                            <ion-input [(ngModel)]="usuario" type="text" placeholder="{{ \'Login.user\' | translate }}" class="colorGris"></ion-input>\n                        </td>\n                        <!--<td><ion-icon name="person"></ion-icon></td>-->\n                        <td>\n                            <ion-img src="assets/img/new/INICIO_USUARIO.png" style="width: 10px; height: 10px;  margin:5px auto; display:block; background-color: transparent;"></ion-img>\n                        </td>\n                    </tr>\n                </table>\n\n                <table width="100%">\n                    <tr>\n                        <td>\n                            <ion-input [(ngModel)]="pass" type="password" placeholder="{{ \'Login.pass\' | translate }}" class="colorGris"></ion-input>\n                        </td>\n                        <!--<td><ion-icon name="lock"></ion-icon></td>-->\n                        <td>\n                            <ion-img src="assets/img/new/INICIO_PASW.png" style="width: 10px; height: 10px;  margin:5px auto; display:block; background-color: transparent;"></ion-img>\n                        </td>\n                    </tr>\n                </table>\n\n\n                <div id="contenedorBtn" *ngIf="contenedorBtn">\n                    <button ion-button outline (click)="login()" id="btnLogin" [disabled]="!isBtnEnabled" style="box-shadow: 0px 0px 5px 1px white;">{{ \'Login.iniciar\' | translate }}</button>\n                    <button ion-button outline (click)="afiliacion()" id="btnLogin" [disabled]="isBtnEnabledAfi" style="box-shadow: 0px 0px 5px 1px white;">{{ \'Afiliacion.registrate\' | translate }}</button>\n                    <!--  <button ion-button outline (click)="drop()" id="btnLogin">ELIMINAR</button>    -->\n                </div>\n\n            </div>\n            <br>\n\n            <button ion-button outline (click)="drop()" id="btnLogin">ELIMINAR</button>\n\n            <!-- Se muestra si el finger en por huella -->\n            <div (click)="loginFingerPrint()" *ngIf="huella">\n                <p style="margin: auto" style="text-align: center; color: #323232;">{{ \'Login.finger\' | translate }}</p>\n                <ion-img src="assets/img/new/INICIO_HUELLA.svg" style="width: 60px; height: 60px;  margin:10px auto; display:block; background-color: transparent;">\n                </ion-img>\n            </div>\n\n\n            <!-- Se muestra si el finger en por face -->\n            <div (click)="loginFingerPrint()" *ngIf="face_ID">\n                <p style="margin: auto" style="text-align: center; color: #323232;">{{ \'Login.face\' | translate }}</p>\n                <ion-img src="assets/img/new/INICIO_ROSTRO.svg" style="width: 60px; height: 60px;  margin:10px auto; display:block; background-color: transparent;">\n                </ion-img>\n            </div>\n\n        </ion-card-content>\n\n    </ion-card>\n\n</ion-content>'/*ion-inline-end:"D:\PYT\development2\AppAuthenticator\src\pages\login\login.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__providers_http_http__["a" /* HttpProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_utils_utils__["a" /* UtilsProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_6__providers_tasks_service_tasks_service__["a" /* TasksServiceProvider */],
+        __WEBPACK_IMPORTED_MODULE_7__providers_dba_dba__["a" /* DbaProvider */], __WEBPACK_IMPORTED_MODULE_8__ionic_native_barcode_scanner__["a" /* BarcodeScanner */], __WEBPACK_IMPORTED_MODULE_9__ionic_native_fingerprint_aio__["a" /* FingerprintAIO */], __WEBPACK_IMPORTED_MODULE_10__ionic_native_network__["a" /* Network */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_11__ionic_native_touch_id__["a" /* TouchID */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]])
+], LoginPage);
+
+//# sourceMappingURL=login.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=9.js.map

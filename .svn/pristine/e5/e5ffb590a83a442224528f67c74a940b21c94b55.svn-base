@@ -1,0 +1,260 @@
+webpackJsonp([13],{
+
+/***/ 699:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DesafiliarPageModule", function() { return DesafiliarPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__desafiliar__ = __webpack_require__(715);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var DesafiliarPageModule = (function () {
+    function DesafiliarPageModule() {
+    }
+    return DesafiliarPageModule;
+}());
+DesafiliarPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_2__desafiliar__["a" /* DesafiliarPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__desafiliar__["a" /* DesafiliarPage */]),
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */]
+        ],
+    })
+], DesafiliarPageModule);
+
+//# sourceMappingURL=desafiliar.module.js.map
+
+/***/ }),
+
+/***/ 715:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DesafiliarPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_http_http__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_dba_dba__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_utils_utils__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(71);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the DesafiliarPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var DesafiliarPage = (function () {
+    function DesafiliarPage(navCtrl, navParams, menuCtrl, loading, storage, http, dba, 
+        // private device: Device,
+        alertCtrl, utils) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.menuCtrl = menuCtrl;
+        this.loading = loading;
+        this.storage = storage;
+        this.http = http;
+        this.dba = dba;
+        this.alertCtrl = alertCtrl;
+        this.utils = utils;
+        //Metodo para cuando se le de back al celular cierre la app y lo envie al login
+        this.utils.outApp("LoginPage");
+    }
+    DesafiliarPage.prototype.ionViewWillEnter = function () {
+        //this.presentConfirm();
+    };
+    DesafiliarPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad DesafiliarPage');
+    };
+    DesafiliarPage.prototype.menu = function () {
+        this.menuCtrl.toggle();
+    };
+    DesafiliarPage.prototype.presentConfirm = function () {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: this.utils.getMessageLanguage("logout.message"),
+            message: this.utils.getMessageLanguage("DesafiliarMensaje"),
+            buttons: [
+                {
+                    text: this.utils.getMessageLanguage("confirm.btnAceptar"),
+                    handler: function (data) {
+                        if (_this.utils.getMessageLanguage("confirm.btnAceptar")) {
+                            //this.utils.presentLoading();
+                            _this.desafiliarUsuario();
+                        }
+                    }
+                },
+                {
+                    text: this.utils.getMessageLanguage("confirm.btnCancelar"),
+                    handler: function (data) {
+                        if (_this.utils.getMessageLanguage("confirm.btnCancelar")) {
+                            console.log("Salida Cancelada");
+                            _this.navCtrl.push("BandejaMenuPage");
+                        }
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    DesafiliarPage.prototype.presentLoadingDefault = function () {
+        var loading = this.loading.create({
+            content: ''
+        });
+        loading.present();
+        setTimeout(function () {
+            loading.dismiss();
+        }, 3000);
+    };
+    //Desafiliación de usuario
+    DesafiliarPage.prototype.desafiliarUsuario = function () {
+        var _this = this;
+        this.dba.searchIdFinger().then(function (idFinger) {
+            //var userIdentificator  = this.dba.searchIdDevice("optional");
+            var userIdentificator = idFinger;
+            //alert("entro");
+            var latitud;
+            var longitud;
+            // Obtencion de la longitud y la latitud de la persona
+            _this.storage.get('latitud').then(function (lat) {
+                _this.storage.get('longitud').then(function (lon) {
+                    if (lat != null && lon != null) {
+                        latitud = lat;
+                        longitud = lon;
+                    }
+                });
+            });
+            _this.presentLoadingDefault();
+            var aesUtil = new AesUtil(128, 1000);
+            _this.storage.get('MESSAGEID').then(function (val) {
+                _this.storage.get('msgjsessionId').then(function (val) {
+                    if (val != null) {
+                        var msgjsessionId = val;
+                        if (val != null) {
+                            var messageId = val;
+                            var urlOtp = "product/disenrollUser/";
+                            /* var newModel: string = this.utils.changePuntoComa(this.device.model);
+                 
+                             var data = '{"iddev":"' + this.device.uuid + '",' +
+                               '"model":"' + newModel + '",' +
+                               '"cordova":"' + this.device.cordova + '",' +
+                               '"plataform":"' + this.device.platform + '",' +
+                               '"version":"' + this.device.version + '",' +
+                               '"manufacturer":"' + this.device.manufacturer + '",' +
+                               '"serial":"' + this.device.serial + '",' +
+                               '"isVirtual":"' + this.device.isVirtual + '"}';*/
+                            var data = _this.utils.infoDevice();
+                            var deviceDATA = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, JSON.stringify(data));
+                            //Datos del dispositivo
+                            var jsonDataDevice = {
+                                "company": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "1"),
+                                "channel": "INT",
+                                "internalUserName": "",
+                                "externalUserName": "",
+                                "messageId": messageId,
+                                "msgjsessionId": msgjsessionId,
+                                "identificator": userIdentificator,
+                                "device": {
+                                    "data": deviceDATA
+                                },
+                                "authType": "AUTH",
+                                "reasonCalled": "auth_desaUsu",
+                                "scoreRiskCustomer": "0",
+                                "geoRefLatitude": latitud,
+                                "geoRefLongitude": longitud,
+                                "deviceTrustId": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.utils.deviceId),
+                                "deviceTrustData": deviceDATA,
+                                "idkey": _this.http.idkey
+                            };
+                            _this.http.callServer(jsonDataDevice, urlOtp).then(function (res) {
+                                //var message = JSON.stringify(res);
+                                //alert("Desafiliar: "+message); 
+                                try {
+                                    if (res.message.code == "0000" && res.message.description) {
+                                        _this.utils.presentAlert("mensajeDesafiliar");
+                                        _this.dba.dropTable(); // Eliminar Registro
+                                        _this.navCtrl.push("LoginPage", { povDesafiliar: "1" });
+                                    }
+                                    else {
+                                        _this.utils.errorControl(res.message.code);
+                                    }
+                                }
+                                catch (error) {
+                                    _this.utils.presentAlert("Se presento el siguiente error: " + error);
+                                }
+                            }, function (error) {
+                                if (error) {
+                                    _this.utils.presentAlert("mensajePeticion" + error);
+                                    _this.storage.clear();
+                                    _this.utils.clearVariableSesion();
+                                    _this.navCtrl.setRoot("LoginPage");
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    }; // fin metodo
+    DesafiliarPage.prototype.devolverse = function () {
+        this.navCtrl.push("BandejaMenuPage");
+    };
+    DesafiliarPage.prototype.aceptar = function () {
+        this.presentConfirm();
+    };
+    DesafiliarPage.prototype.cancelar = function () {
+        this.navCtrl.push("BandejaMenuPage");
+    };
+    DesafiliarPage.prototype.reiniciarSesion = function () {
+        this.utils.reload();
+    };
+    return DesafiliarPage;
+}());
+DesafiliarPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-desafiliar',template:/*ion-inline-start:"D:\PYT\development2\AppAuthenticator\src\pages\desafiliar\desafiliar.html"*/'<ion-header>\n\n    <!--\n  <ion-navbar hideBackButton>\n    <button ion-button menu-toggle (click)="menu()">\n      <ion-icon name="menu"></ion-icon>\n    </button> \n    <div id="logo"></div>\n    <div id="logOut" (click)="presentConfirm()"></div>\n  </ion-navbar>\n-->\n</ion-header>\n\n<ion-content class="todo" (ionScroll)="reiniciarSesion()" (click)="reiniciarSesion()">\n\n    <!--\n    <ion-label class="ttlProductOverView">{{ \'DesafiliarUsuario\' | translate }}</ion-label>\n    <br>\n  -->\n\n    <ion-img style="width: 280px;\n                height: 60px; \n                left: 15%;\n                top: 40px;    \n                position: absolute;\n                margin-left: auto;\n                margin:10px;\n                display:block; \n                background: #F0F2F4;" src="assets/img/new/LOGO.svg">\n    </ion-img>\n\n    <br><br><br><br><br><br><br><br>\n\n    <ion-card>\n        <ion-card-content>\n\n            <table>\n                <tr>\n                    <td>\n                        <span class="devolver" (click)="devolverse()">\n            <ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>\n          </span>\n                        <span class="otp">\n            <ion-img src="assets/img/new/MENU_DESAFILIAR.svg"></ion-img>\n          </span>\n                    </td>\n                </tr>\n                <br><br>\n                <tr>\n                    <td>\n                        <div class="texto">\n                            {{ \'DesafiliarUsuario\' | translate }}\n                        </div>\n                        <div class="desafiliar">\n                            {{ \'DesafiliarMensaje\' | translate }}\n                        </div>\n                    </td>\n                </tr>\n                <tr>\n                    <td>\n                        <!--<div style="width: 80px;\n                      height: 95px;\n                      background: url(../assets/img/new/PANTALLA_ALERTA_SALIR.svg) 0 0 no-repeat;\n                      margin: auto;\n                      margin-top: 15px;">\n          </div>\n          <span class="otp">-->\n                        <table WIDTH="100">\n                            <tr>\n                                <td WIDTH=50></td>\n                                <td WIDTH=50 style="padding-left: 60px;">\n                                    <ion-img src="assets/img/new/PANTALLA_ALERTA_SALIR.svg" style="width: 80px; height: 95px; margin: auto; margin-top: 15px;"></ion-img>\n                                </td>\n                                <td WIDTH=50></td>\n                            </tr>\n                        </table>\n\n                        <!--</span>-->\n                    </td>\n                </tr>\n                <tr>\n                    <td>\n                        <div id="contenedorBtn">\n                            <button ion-button outline (click)="aceptar()" id="btnLogin" style="box-shadow: 0px 0px 5px 1px white;">{{ \'confirm.btnAceptar\' | translate }}</button>\n                            <button ion-button outline (click)="cancelar()" id="btnLogin" style="box-shadow: 0px 0px 5px 1px white;">{{ \'confirm.btnCancelar\' | translate }}</button>\n                        </div>\n                    </td>\n                </tr>\n            </table>\n\n        </ion-card-content>\n    </ion-card>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\PYT\development2\AppAuthenticator\src\pages\desafiliar\desafiliar.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2__providers_http_http__["a" /* HttpProvider */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_dba_dba__["a" /* DbaProvider */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_4__providers_utils_utils__["a" /* UtilsProvider */]])
+], DesafiliarPage);
+
+//# sourceMappingURL=desafiliar.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=13.js.map

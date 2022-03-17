@@ -1,0 +1,391 @@
+webpackJsonp([3],{
+
+/***/ 708:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TkQrPageModule", function() { return TkQrPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tk_qr__ = __webpack_require__(724);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ngx_qrcode2__ = __webpack_require__(317);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+var TkQrPageModule = (function () {
+    function TkQrPageModule() {
+    }
+    return TkQrPageModule;
+}());
+TkQrPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_2__tk_qr__["a" /* TkQrPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tk_qr__["a" /* TkQrPage */]),
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */],
+            __WEBPACK_IMPORTED_MODULE_4_ngx_qrcode2__["a" /* NgxQRCodeModule */]
+        ],
+    })
+], TkQrPageModule);
+
+//# sourceMappingURL=tk-qr.module.js.map
+
+/***/ }),
+
+/***/ 724:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TkQrPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_utils_utils__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_http_http__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_device__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_push___ = __webpack_require__(166);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the TkQrPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var TkQrPage = (function () {
+    function TkQrPage(navCtrl, navParams, storage, utils, platform, http, menuCtrl, device, alertCtrl, push) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.storage = storage;
+        this.utils = utils;
+        this.platform = platform;
+        this.http = http;
+        this.menuCtrl = menuCtrl;
+        this.device = device;
+        this.alertCtrl = alertCtrl;
+        this.push = push;
+        this.isBtnEnabled = false;
+        this.mostrarCreatedCode = false;
+        this.createdCode = null;
+        //Metodo para cuando se le de back al celular cierre la app y lo envie al login
+        this.utils.outApp("LoginPage");
+        // Metodo que escucha el llamado de las notificaciones push
+        platform.ready().then(function () {
+            _this.notificacionPush();
+        });
+        // Obtencion de la longitud y la latitud de la persona
+        this.storage.get('latitud').then(function (lat) {
+            _this.storage.get('longitud').then(function (lon) {
+                if (lat != null && lon != null) {
+                    _this.latitud = lat;
+                    _this.longitud = lon;
+                }
+            });
+        });
+        //Obtención del userName - Ya viene encriptado
+        this.storage.get('userName').then(function (val) {
+            if (val != null) {
+                //this.userName = val;
+                var aesUtil = new AesUtil(128, 1000);
+                // Se encripta el usuario con el nuevo encript que paso hernan 2019
+                _this.userName = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, val);
+            }
+        });
+        this.storage.get('AUTHTYPE').then(function (val) {
+            if (val != null) {
+                _this.authType = val;
+            }
+        });
+        //Obtención del messageId - PROVIENE DEL LOGIN
+        this.storage.get('MESSAGEID').then(function (val) {
+            if (val != null) {
+                _this.messageId = val;
+            }
+        });
+    }
+    TkQrPage.prototype.ionViewDidLoad = function () { };
+    TkQrPage.prototype.authTkQR = function () {
+        var _this = this;
+        var aesUtil = new AesUtil(128, 1000);
+        this.isBtnEnabled = true;
+        this.storage.get('MESSAGEID').then(function (val) {
+            //alert("message id tk-qr: "+val);
+            if (val != null) {
+                _this.messageId = val;
+                var urlOtp = "auth/callReqAuth/";
+                var newModel = _this.utils.changePuntoComa(_this.device.model);
+                _this.data = '{"iddev":"' + _this.device.uuid + '",' +
+                    '"model":"' + newModel + '",' +
+                    '"cordova":"' + _this.device.cordova + '",' +
+                    '"plataform":"' + _this.device.platform + '",' +
+                    '"version":"' + _this.device.version + '",' +
+                    '"manufacturer":"' + _this.device.manufacturer + '",' +
+                    '"serial":"' + _this.device.serial + '",' +
+                    '"isVirtual":"' + _this.device.isVirtual + '"}';
+                //this.encripData = this.utils.encodePass(this.data);
+                _this.encripData = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.data);
+                //Datos del dispositivo
+                _this.jsonDataDevice =
+                    {
+                        "userName": _this.userName,
+                        "authType": "TQ",
+                        "messageId": _this.messageId,
+                        "device": {
+                            "iddev": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.device.uuid)
+                        },
+                        "reasonCalled": "auth_tkQR",
+                        "scoreRiskCustomer": "0",
+                        "geoRefLatitude": _this.latitud,
+                        "geoRefLongitude": _this.longitud,
+                        "deviceTrustId": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.device.uuid),
+                        "deviceTrustData": _this.encripData
+                    };
+                //alert("datos enviar OTP: "+JSON.stringify(this.jsonDataDevice));
+                _this.http.callServer(_this.jsonDataDevice, urlOtp).then(function (res) {
+                    _this.message = JSON.stringify(res);
+                    //this.storage.set('MESSAGEID', res.messageId);
+                    if (res.messageId != null || res.messageId != "") {
+                        _this.storage.set('MESSAGEID', res.messageId);
+                        _this.messageId = res.messageId;
+                    }
+                    try {
+                        _this.utils.errorControl(res.message.code);
+                        if (res.message.code == "0000") {
+                            _this.mostrarCreatedCode = true;
+                            _this.createCode(res.authData);
+                            _this.storage.set('MESSAGEID', res.messageId);
+                            _this.isBtnEnabled = false;
+                        }
+                        else if (res.message.code == "9003") {
+                            _this.isBtnEnabled = true;
+                        }
+                        else if (res.message.code == "046") {
+                            _this.isBtnEnabled = false;
+                        }
+                        else {
+                            _this.utils.presentAlert(res.description);
+                            _this.isBtnEnabled = false;
+                        }
+                    }
+                    catch (error) {
+                        _this.utils.presentAlert("mensajeErrorControlado" + error);
+                    }
+                }, function (error) {
+                    if (error) {
+                        _this.utils.presentAlert("mensajePeticion" + error);
+                        _this.storage.clear();
+                        _this.utils.clearVariableSesion();
+                        _this.navCtrl.setRoot("LoginPage");
+                    }
+                });
+            }
+        });
+    }; // fin metodo authTkQR
+    TkQrPage.prototype.createCode = function (createQR) {
+        //alert("createCode");
+        this.createdCode = createQR;
+    };
+    TkQrPage.prototype.menu = function () {
+        this.menuCtrl.toggle();
+    };
+    TkQrPage.prototype.logout = function () {
+        this.utils.presentConfirm("LoginPage");
+    };
+    // Metodo para salir de la app
+    TkQrPage.prototype.logoutApp = function () {
+        var _this = this;
+        //Obtención del messageId - PROVIENE DEL LOGIN
+        this.storage.get('nameUser').then(function (val) {
+            if (val != null) {
+                //alert("logout 2");
+                var aesUtil = new AesUtil(128, 1000);
+                var newModel = _this.utils.changePuntoComa(_this.device.model);
+                _this.data = '{"iddev":"' + _this.device.uuid + '",' +
+                    '"model":"' + newModel + '",' +
+                    '"cordova":"' + _this.device.cordova + '",' +
+                    '"plataform":"' + _this.device.platform + '",' +
+                    '"version":"' + _this.device.version + '",' +
+                    '"manufacturer":"' + _this.device.manufacturer + '",' +
+                    '"serial":"' + _this.device.serial + '",' +
+                    '"isVirtual":"' + _this.device.isVirtual + '"}';
+                //this.encripData = this.utils.encodePass(this.data);
+                _this.encripData = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.data);
+                // var iddevEnc: string = this.utils.encodePass(this.device.uuid); ASI ESTABA ANTERIORMENTE  21 MARZO 2019
+                var iddevEnc = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.device.uuid);
+                //Datos del dispositivo
+                _this.jsonDataDevice =
+                    {
+                        "userName": val,
+                        "company": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "1"),
+                        "appAuthType": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "AUTH"),
+                        "appProcess": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "I"),
+                        "device": {
+                            "data": _this.encripData,
+                            "iddev": iddevEnc
+                        },
+                        "authType": "AUTH",
+                        "reasonCalled": "auth_logout",
+                        "scoreRiskCustomer": "0",
+                        "geoRefLatitude": _this.latitud,
+                        "geoRefLongitude": _this.longitud,
+                        "deviceTrustId": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.device.uuid),
+                        "deviceTrustData": _this.encripData
+                    };
+                _this.jsonDataDevice2 =
+                    {
+                        "userName": val,
+                        "device": {
+                            "iddev": _this.device.uuid,
+                            "model": _this.device.model,
+                            "cordova": _this.device.cordova,
+                            "plataform": _this.device.platform,
+                            "version": _this.device.version,
+                            "manufacturer": _this.device.manufacturer,
+                            "serial": _this.device.serial,
+                            "isVirtual": _this.device.isVirtual
+                        }
+                    };
+                var urlLogin = "security/loginOut/";
+                _this.http.callServer(_this.jsonDataDevice, urlLogin).then(function (res) {
+                    //alert(res);
+                    _this.message = JSON.stringify(res);
+                    //alert("Respuesta Logout: "+this.message);
+                    if (res.message.code == '0000' || res.message.description == 'STATUS OK') {
+                        _this.utils.clearVariableSesion();
+                        _this.utils.logout();
+                    }
+                }, function (error) {
+                    _this.utils.presentAlert("mensajeConexion");
+                });
+            }
+        });
+    };
+    //Metodo de confirmación para logout de la app
+    TkQrPage.prototype.presentConfirm = function () {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: this.utils.getMessageLanguage("logout.message"),
+            message: this.utils.getMessageLanguage("logout.titulo"),
+            buttons: [
+                {
+                    text: this.utils.getMessageLanguage("confirm.btnCancelar"),
+                    handler: function (data) {
+                        if (_this.utils.getMessageLanguage("confirm.btnCancelar")) {
+                            console.log("Salida Cancelada");
+                        }
+                    }
+                },
+                {
+                    text: this.utils.getMessageLanguage("confirm.btnAceptar"),
+                    handler: function (data) {
+                        if (_this.utils.getMessageLanguage("confirm.btnAceptar")) {
+                            _this.utils.presentLoading();
+                            _this.logoutApp();
+                        }
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    // ***************** CONFIGURACION DE NOTIFICACIONES PUSH ***********************
+    TkQrPage.prototype.notificacionPush = function () {
+        var _this = this;
+        var titulo;
+        var authVal;
+        var authCod;
+        var mensaje;
+        // comprobamos los permisos
+        this.push.hasPermission()
+            .then(function (res) {
+            if (res.isEnabled) {
+                //alert('We have permission to send push notifications'); 
+            }
+            else {
+                //alert('We do not have permission to send push notifications');
+            }
+        });
+        // inicializamos la configuración para android y ios
+        var options = {
+            android: {
+                senderID: '663636742494',
+                //foreground: 'true',
+                forceShow: true,
+                sound: 'true'
+            },
+            ios: {
+                alert: true,
+                badge: true,
+                sound: 'false'
+            },
+            windows: {}
+        };
+        var pushObject = this.push.init(options);
+        pushObject.on('notification').subscribe(function (notification) {
+            titulo = notification.title;
+            var notificacion = notification.message;
+            var temp1;
+            var temp2;
+            authVal = notificacion.slice(0, 2);
+            temp1 = notificacion.split(" ");
+            temp2 = temp1[0].split();
+            authCod = temp1[0].slice(2);
+            var zz = notificacion.split(":");
+            mensaje = zz[1];
+            _this.navCtrl.push("PushPage", { title: titulo, codOtp: authCod, msg: mensaje });
+        });
+        pushObject.on('registration').subscribe(function (registration) {
+            var registrationId = registration.registrationId;
+            var tk = registrationId;
+        });
+        pushObject.on('error').subscribe(function (error) {
+            console.error('Error with Push plugin', error);
+        });
+    };
+    TkQrPage.prototype.devolverse = function () {
+        this.navCtrl.push("BandejaMenuPage");
+    };
+    return TkQrPage;
+}());
+TkQrPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-tk-qr',template:/*ion-inline-start:"D:\PYT\development\work_HB_2019\auth_2019\authApp\src\pages\tk-qr\tk-qr.html"*/'<ion-header>\n<!--\n  <ion-navbar hideBackButton>\n    <button ion-button menu-toggle (click)="menu()">\n      <ion-icon name="menu"></ion-icon>\n    </button> \n    <div id="logo"></div>\n    <div id="logOut" (click)="presentConfirm()"></div>\n  </ion-navbar>   \n-->\n</ion-header>\n\n<ion-content class="todo">\n\n<!--\n  <ion-label class="ttlProductOverView">{{ \'tk.Titulo2\' | translate }}</ion-label>\n  <br>\n  \n  <div>\n    <ion-label class="ttlProductOverView2">TOKEN - QR</ion-label>\n  </div>\n  <br>\n  <div class="ttlProductOverView3">\n    <ion-card *ngIf="mostrarCreatedCode">\n      <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>\n    </ion-card>\n  </div>\n\n  <div id="contenedorBtn">                       \n    <button ion-button outline (click)="authTkQR()" id="primerBoton" [disabled]="isBtnEnabled" >{{ \'tk.btn\' | translate }}</button>\n  </div>\n  <br>\n-->\n\n<ion-img style="width: 280px;\n                height: 60px; \n                left: 15%;\n                top: 40px;    \n                position: absolute;\n                margin-left: auto;\n                margin:10px auto;\n                display:block; \n                background: #F0F2F4;" src="assets/img/new/LOGO.svg">\n                </ion-img>\n\n<br><br><br><br><br><br><br><br>\n\n<ion-card>\n  <ion-card-content>\n\n    <table>\n      <tr>\n        <td>\n          <span class="devolver" (click)="devolverse()">\n            <ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>\n          </span>\n          <span class="otp">\n            <ion-img src="assets/img/new/BANDEJA_TKQR.svg"></ion-img>\n          </span>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <div class="texto">\n            {{ \'tk.Titulo2\' | translate }}\n          </div>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <!-- Empieza -->\n\n          <div class="ttlProductOverView3">\n            <div *ngIf="mostrarCreatedCode" style="padding-top: 15px;">\n              <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>\n            </div>\n          </div>\n\n          <!-- Termina -->\n        </td>\n      </tr>\n      <tr>\n        <td>   \n          <br>               \n          <div id="contenedorBtn">                       \n            <button ion-button outline (click)="authTkQR()" id="primerBoton" [disabled]="isBtnEnabled" >{{ \'tk.btn\' | translate }}</button>\n          </div>\n        </td>\n      </tr>\n    </table>\n\n  <!--\n    <br>\n\n    <div *ngIf="imgResStatus" class="confirmExitosa">\n    </div>\n    <p class="respServer">{{resp}}</p>\n    \n    <div *ngIf="errorAdicional" class="confirmFallida">\n    </div>\n  -->\n  \n  </ion-card-content>\n</ion-card>\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\PYT\development\work_HB_2019\auth_2019\authApp\src\pages\tk-qr\tk-qr.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3__providers_utils_utils__["a" /* UtilsProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_4__providers_http_http__["a" /* HttpProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_device__["a" /* Device */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_push___["a" /* Push */]])
+], TkQrPage);
+
+//# sourceMappingURL=tk-qr.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=3.js.map

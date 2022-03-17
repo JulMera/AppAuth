@@ -1,0 +1,557 @@
+<ion-header>
+<!--
+    <ion-navbar hideBackButton>
+        <button ion-button menu-toggle (click)="menu()">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <div id="logo"></div>
+        <div id="logOut" (click)="presentConfirm()"></div>
+    </ion-navbar>
+-->
+</ion-header>
+
+
+<ion-content class="todo">
+
+    <!--<ion-label class="ttlProductOverView">{{ 'validacionPos.titulo' | translate }}</ion-label>-->
+
+    <ion-img style="width: 280px;
+                height: 60px; 
+                left: 15%;
+                top: 40px;    
+                position: absolute;
+                margin-left: auto;
+                margin:10px auto;
+                display:block; 
+                background: #F0F2F4;" src="assets/img/new/LOGO.svg">
+                </ion-img>
+
+<br><br><br><br><br><br><br><br> 
+   
+        <!-- Preguntas Tipo C --> 
+        <div *ngIf="typeQ == 'C'" id="tipoC">
+            <ion-card>
+                <ion-card-content>
+                    <!--empieza-->
+                    <table>
+                        <tr *ngIf="mostrarDevolver">
+                            <td>
+                                <span class="devolver" (click)="devolverse()">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                                    <div id="regresarVP"></div>
+                                </span>
+                                <span class="otp">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                                    <div id="VP"></div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="texto">
+                                    {{ 'validacionPos.titulo' | translate }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--termina-->
+                    <div href="#" class="activated">
+                        <p style="font-size: initial; margin-top: 20px; color: #323232;">{{textQ}}</p>
+                    </div>
+                    <br>
+                    <div>
+                        <ion-input [(ngModel)]="typec" type="password" placeholder="{{ 'Login.finger' | translate }}" id="otp"></ion-input>
+                    </div>
+                    <br>
+                    <div *ngIf="totalQ <= cantQ">
+                        <span *ngIf="totalQ > '1'">
+                            <!--<ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="float: left;" (click)="back()"></ion-icon>-->
+                            <button style="float: left; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="back()">
+                                <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_DEVOLVER.svg" style="margin-top: 6px;"></ion-img>-->
+                                <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="totalQ < cantQ">
+                        <!--<ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward" style="float: right;" (click)="next(typec)"></ion-icon>-->
+                        <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="next(typec)">
+                            <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px;"></ion-img>-->
+                            <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                        </button>
+                    </div>
+
+                    <!-- *ngIf="btnPreguntas"-->
+                    <div *ngIf="btnPreguntas">
+                        <div *ngIf="totalQ == cantQ">
+                            <div id="contenedorBtn">
+                                <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>-->
+                                <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px; color: #FF3C00; font-weight: bold; font-size: medium;" (click)="mostrarDatos()">
+                                    <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                    {{ 'validacionPos.btn' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <!-- Preguntas Tipo A-->
+        <div *ngIf="typeQ == 'A'" id="tipoA">
+            <ion-card>
+                <ion-card-content>
+                    <!--empieza-->
+                    <table>
+                        <tr *ngIf="mostrarDevolver">
+                          <td>
+                            <span class="devolver" (click)="devolverse()">
+                              <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                              <div id="regresarVP"></div>
+                            </span>
+                            <span class="otp">
+                              <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                              <div id="VP"></div>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="texto">
+                              {{ 'validacionPos.titulo' | translate }}
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    <!--termina-->
+                    <div href="#" class="activated">
+                        <p style="font-size: initial; margin-top: 20px; color: #323232;">{{textQ}}</p>
+                    </div>
+                    <br>
+                    <div>
+                        <ion-input [(ngModel)]="typea" type="text" placeholder="{{ 'Login.finger' | translate }}" id="otp"></ion-input>
+                    </div>
+                    <br>
+                    <div *ngIf="totalQ <= cantQ">
+                        <span *ngIf="totalQ > '1'">
+                            <!--<ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="float: left;" (click)="back()"></ion-icon>-->
+                            <button style="float: left; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="back()">
+                                <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_DEVOLVER.svg" style="margin-top: 6px;"></ion-img>-->
+                                <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="totalQ < cantQ">
+                        <!--<ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward" style="float: right;" (click)="next(typea)"></ion-icon>-->
+                        <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="next(typea)">
+                            <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px;"></ion-img>-->
+                            <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                        </button>
+                    </div>
+
+                    <!-- *ngIf="btnPreguntas"-->
+                    <div *ngIf="btnPreguntas">
+                        <div *ngIf="totalQ == cantQ">
+                            <div id="contenedorBtn">
+                                <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>-->
+                                <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px; color: #FF3C00; font-weight: bold; font-size: medium;" (click)="mostrarDatos()">
+                                    <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                    {{ 'validacionPos.btn' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+            
+        <!-- Preguntas Tipo N-->
+        <div *ngIf="typeQ == 'N'" id="tipoN">
+            <ion-card>
+                <ion-card-content>
+                    <!--empieza-->
+                    <table>
+                        <tr *ngIf="mostrarDevolver">
+                            <td>
+                                <span class="devolver" (click)="devolverse()">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                                    <div id="regresarVP"></div>
+                                </span>
+                                <span class="otp">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                                    <div id="VP"></div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="texto">
+                                    {{ 'validacionPos.titulo' | translate }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--termina-->
+                    <div href="#" class="activated">
+                        <p style="margin: 8px; font-size: inherit; align-content: justify;">{{textQ}}</p>
+                    </div>
+                    <br>
+                    <div>
+                        <ion-input [(ngModel)]="typen" type="number" placeholder="{{ 'Login.finger' | translate }}" id="otp"></ion-input>
+                    </div>       
+                    <br>
+                    <div *ngIf="totalQ <= cantQ">
+                        <span *ngIf="totalQ > '1'">
+                            <!--<ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="float: left;" (click)="back()"></ion-icon>-->
+                            <button style="float: left; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="back()">
+                                <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_DEVOLVER.svg" style="margin-top: 6px;"></ion-img>-->
+                                <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="totalQ < cantQ">
+                        <!--<ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward" style="float: right;" (click)="next(typen)"></ion-icon>-->
+                        <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="next(typen)">
+                            <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px;"></ion-img>-->
+                            <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                        </button>
+                    </div>
+                    
+                    <!-- *ngIf="btnPreguntas"-->
+                    <div *ngIf="btnPreguntas">
+                        <div *ngIf="totalQ == cantQ">
+                            <div id="contenedorBtn">
+                                <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>-->
+                                <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px; color: #FF3C00; font-weight: bold; font-size: medium;" (click)="mostrarDatos()">
+                                    <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                    {{ 'validacionPos.btn' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <!-- Preguntas Tipo S -->
+        <div *ngIf="typeQ == 'S'" id="tipoS">
+            <ion-card>
+                <ion-card-content style="height: 290px;">
+                    <!--empieza-->
+                    <table>
+                        <tr *ngIf="mostrarDevolver">
+                            <td>
+                                <span class="devolver" (click)="devolverse()">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                                    <div id="regresarVP"></div>
+                                </span>
+                                <span class="otp">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                                    <div id="VP"></div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="texto">
+                                    {{ 'validacionPos.titulo' | translate }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--termina-->
+                    <div href="#" class="activated">
+                        <p style="margin-top: 10px; font-size: inherit; align-content: justify;">{{textQ}}</p>
+                    </div>
+                    <br>
+                    <div style="margin-top: -5px;">
+                        <ion-list radio-group [(ngModel)]="types">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <ion-radio value="S" checked="true" style="margin-top: 2px;"></ion-radio>
+                                        </span>
+                                        <span style="float: right; margin-right: 77%;">
+                                            <ion-label>{{ 'addAccount.yes' | translate }}</ion-label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <ion-radio value="N" style="margin-top: 7px;"></ion-radio>
+                                        </span>
+                                        <span style="float: right; margin-right: 78%; margin-top: 5px;">
+                                            <ion-label>{{ 'addAccount.no' | translate }}</ion-label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ion-list>
+                    </div>
+                    <br>
+                    <div *ngIf="totalQ <= cantQ">
+                        <span *ngIf="totalQ > '1'">
+                            <!--<ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="float: left;" (click)="back()"></ion-icon>-->
+                            <button style="float: left; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="back()">
+                                <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_DEVOLVER.svg" style="margin-top: 6px;"></ion-img>-->
+                                    <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="totalQ < cantQ">
+                        <!--<ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward" style="float: right;" (click)="next(types)"></ion-icon>-->
+                        <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="next(types)">
+                            <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                        </button>
+                    </div>
+
+                    <!-- *ngIf="btnPreguntas"-->
+                    <div *ngIf="btnPreguntas">
+                        <div *ngIf="totalQ == cantQ">
+                            <div id="contenedorBtn">
+                                <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>-->
+                                <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px; color: #FF3C00; font-weight: bold; font-size: medium;" (click)="mostrarDatos()">
+                                    <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                    {{ 'validacionPos.btn' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <!-- Preguntas Tipo M-->
+        <div *ngIf="typeQ == 'M'" id="tipoM"> <br><br><br><br>
+            <ion-card style="margin-top: 57px;">
+                <ion-card-content style="height: 430px;">
+                    <!--empieza-->
+                    <table>
+                        <tr *ngIf="mostrarDevolver">
+                            <td>
+                                <span class="devolver" (click)="devolverse()">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                                    <div id="regresarVP"></div>
+                                </span>
+                                <span class="otp">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                                    <div id="VP"></div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="texto">
+                                    {{ 'validacionPos.titulo' | translate }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--termina-->
+                    <div href="#">
+                        <p style="font-size: initial; margin-top: 20px; color: #323232;">{{textQ}}</p>
+                    </div>
+                    <br>
+                    <table>
+                        <tr>
+                            <td>
+                                <ion-checkbox [(ngModel)]="option1"></ion-checkbox>
+                            </td>
+                            <td>
+                                <ion-label>{{option1_texto}}</ion-label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ion-checkbox [(ngModel)]="option2"></ion-checkbox>
+                            </td>
+                            <td>
+                                <ion-label>{{option2_texto}}</ion-label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ion-checkbox [(ngModel)]="option3"></ion-checkbox>
+                            </td>
+                            <td>
+                                <ion-label>{{option3_texto}}</ion-label>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div *ngIf="totalQ <= cantQ">
+                        <span *ngIf="totalQ > '1'">
+                            <!--<ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="float: left;" (click)="back()"></ion-icon>-->
+                            <button style="float: left; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="back()">
+                                <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_DEVOLVER.svg" style="margin-top: 6px;"></ion-img>-->
+                                <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="totalQ < cantQ">
+                        <!--<ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward" style="float: right;" (click)="nextPage()"></ion-icon>-->
+                        <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="nextPage()">
+                            <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                            <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                        </button>
+                    </div>
+
+                    <!-- *ngIf="btnPreguntas"-->
+                    <div *ngIf="btnPreguntas">
+                        <div *ngIf="totalQ == cantQ">
+                            <div id="contenedorBtn">
+                                <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>-->
+                                <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px; color: #FF3C00; font-weight: bold; font-size: medium;" (click)="mostrarDatos()">
+                                    <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                    {{ 'validacionPos.btn' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <!-- Preguntas Tipo R-->
+        <div *ngIf="typeQ == 'R'" id="tipoM"> <br><br><br><br>
+            <ion-card style="margin-top: 57px;">
+                <ion-card-content style="height: 430px;">
+                    <!--empieza-->
+                    <table>
+                        <tr *ngIf="mostrarDevolver">
+                            <td>
+                                <span class="devolver" (click)="devolverse()"> 
+                                    <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                                    <div id="regresarVP"></div>
+                                </span>
+                                <span class="otp">
+                                    <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                                    <div id="VP"></div>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="texto">
+                                    {{ 'validacionPos.titulo' | translate }}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--termina-->
+                    <div href="#">
+                        <p style="font-size: initial; margin-top: 20px; color: #323232;">{{textQ}}</p>
+                    </div>
+                    <br>
+                    <table>
+                        <tr>
+                            <td>
+                                <ion-checkbox [(ngModel)]="option1"></ion-checkbox>
+                            </td>
+                            <td>
+                                <ion-label>{{option1_texto}}</ion-label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ion-checkbox [(ngModel)]="option2"></ion-checkbox>
+                            </td>
+                            <td>
+                                <ion-label>{{option2_texto}}</ion-label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ion-checkbox [(ngModel)]="option3"></ion-checkbox>
+                            </td>
+                            <td>
+                                <ion-label>{{option3_texto}}</ion-label>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div *ngIf="totalQ <= cantQ">
+                        <span *ngIf="totalQ > '1'">
+                            <!--<ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back" style="float: left;" (click)="back()"></ion-icon>-->
+                            <button style="float: left; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="back()">
+                                <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_DEVOLVER.svg" style="margin-top: 6px;"></ion-img>-->
+                                <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <div *ngIf="totalQ < cantQ">
+                        <!--<ion-icon ios="ios-arrow-round-forward" md="md-arrow-round-forward" style="float: right;" (click)="nextPage()"></ion-icon>-->
+                        <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="nextPage()">
+                            <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                            <ion-icon os="ios-arrow-round-forward" md="md-arrow-round-forward" style="margin-top: 2px; min-height: 30px; color: #FF3C00;"></ion-icon>
+                        </button>
+                    </div>
+
+                    <!-- *ngIf="btnPreguntas"-->
+                    <div *ngIf="btnPreguntas">
+                        <div *ngIf="totalQ == cantQ">
+                            <div id="contenedorBtn">
+                                <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>-->
+                                <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px; color: #FF3C00; font-weight: bold; font-size: medium;" (click)="mostrarDatos()">
+                                    <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>-->
+                                    {{ 'validacionPos.btn' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+<!--Aqui termina todo la configuracion de las preguntas de validacion positiva-->
+
+        <ion-card style="height: 45%;" *ngIf="mostrarValidacion">
+            <ion-card-content>
+                <!--empieza-->
+                <table>
+                    <tr *ngIf="mostrarDevolver">
+                        <td>
+                            <span class="devolver" (click)="devolverse()">
+                                <!--<ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>-->
+                                <div id="regresarVP"></div>
+                            </span>
+                            <span class="otp">
+                                <!--<ion-img src="assets/img/new/BANDEJA_VERIFICACION_ID.svg"></ion-img>-->
+                                <div id="VP"></div>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="texto">
+                                {{ 'validacionPos.titulo' | translate }}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!--termina-->
+                <!-- -->
+                <div *ngIf="imgResStatus" class="confirmExitosa"></div>
+                <div *ngIf="errorAdicional" class="confirmFallida"></div>
+                <br>
+                <!---->
+                <p *ngIf="imgResStatus" class="respServer" style="color: #D2D20A; font-family: Helvetica;">{{ resp }}</p>
+                <p *ngIf="imgResStatus2" class="respServer" style="color: #FF3C00;  font-family: Helvetica;">{{ resp }}</p>
+            </ion-card-content>
+        </ion-card>
+        <!---->
+        <!-- *ngIf="btnPreguntas"
+        <div *ngIf="btnPreguntas">
+            <div *ngIf="totalQ == cantQ">
+                <div id="contenedorBtn">-->
+                    <!--<button ion-button outline (click)="mostrarDatos()">{{ 'validacionPos.btn' | translate }}</button>
+                    <button style="float: right; box-shadow: 0px 0px 5px 1px white; width: 90px; border-radius: 10px; height: 36px;" (click)="mostrarDatos()">-->
+                        <!--<ion-img src="assets/img/new/PANTALLA_VERIFICACION_ID_SEGUIR.svg" style="margin-top: 6px; min-height: 30px;"></ion-img>
+                        {{ 'validacionPos.btn' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>-->
+        
+</ion-content>

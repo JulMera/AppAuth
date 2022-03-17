@@ -1,0 +1,191 @@
+webpackJsonp([4],{
+
+/***/ 708:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPageModule", function() { return TabsPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tabs__ = __webpack_require__(724);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var TabsPageModule = (function () {
+    function TabsPageModule() {
+    }
+    return TabsPageModule;
+}());
+TabsPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_2__tabs__["a" /* TabsPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tabs__["a" /* TabsPage */]),
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */]
+        ],
+    })
+], TabsPageModule);
+
+//# sourceMappingURL=tabs.module.js.map
+
+/***/ }),
+
+/***/ 724:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the TabsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var TabsPage = (function () {
+    function TabsPage(navCtrl, navParams, storage, translateService) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.storage = storage;
+        this.translateService = translateService;
+        //tab1Root = 'ProductOverViewPage';
+        this.tab1Root = ''; //InboxPage //HomePage
+        this.tab2Root = 'HomePage'; // TransferPage
+        this.tab3Root = 'GcPage'; // RutaPagosPage 
+        this.tab4Root = 'QrPage';
+        this.tab5Root = 'TkPage';
+        this.tab6Root = 'TkQrPage';
+        this.tab7Root = 'UserSecurityPage';
+        this.tab8Root = 'ValidacionPositivaPage';
+        this.tab9Root = 'DesafiliarPage';
+        this.n = "";
+        this.idioms = [];
+        //this.index = navParams.data.tabIndex || 0;
+        //alert("Vista "+this.navParams.get("view"))
+        this.index = this.navParams.get("view");
+        this.n = this.navParams.get("nuevo");
+        this.getData();
+        this.idioms = [
+            {
+                value: 'es_co',
+                label: 'Español',
+            },
+            {
+                value: 'en_us',
+                label: 'Ingles'
+            }
+        ];
+    }
+    TabsPage.prototype.getData = function () {
+        var _this = this;
+        var tmp;
+        this.storage.get('name').then(function (val) {
+            console.log('esta en otra pantalla ', val);
+            _this.prueba = val;
+        });
+    };
+    TabsPage.prototype.lenguague = function () {
+        this.x = this.storage.get('lenguaje').then(function (val) {
+            console.log('Esta en root', val);
+        });
+        this.translateService.use(this.x);
+    };
+    /**
+     * this method was created for remove all elements in sessionStore,
+     * can clean and no show garbage.
+     */
+    TabsPage.prototype.changeTab = function () {
+        /*
+            this.storage.remove('accountSelectedTopay');
+              
+          //Variable de sesion cuentas propias de las tarjetas de creditos
+            this.storage.remove('cuentasPropias');
+            
+          //Variable de sesion valor minimo y/o total y/o digitado de la tarjeta seleccionada
+            this.storage.remove('valorSeleccionado');
+    
+          //variable de sesion cuenta selecciondad de pay bills
+            this.storage.remove('cuentaPayBill');
+    
+          //variable de sesion bandera
+            this.storage.remove('bandera');
+    
+          //cuenta seleccionada en transferAccount
+            this.storage.remove('cuentaTransferSelected');
+    
+            this.storage.remove('selectedAccount'); */
+    };
+    TabsPage.prototype.changePaysTab = function () {
+        /*  this.storage.remove('accountSelectedTopay');
+  
+        //Variable de sesion cuentas propias de las tarjetas de creditos
+          this.storage.remove('cuentasPropias');
+          
+        //Variable de sesion valor minimo y/o total y/o digitado de la tarjeta seleccionada
+          this.storage.remove('valorSeleccionado');
+  
+        //variable de sesion cuenta selecciondad de pay bills
+          this.storage.remove('cuentaPayBill');
+  
+        //variable de sesion bandera
+          this.storage.remove('bandera');
+  
+        //información de la cuentas seleccionadas en bills to pay y product to debit
+          this.storage.remove('infoCuenta');
+          this.storage.remove('infoCuenta2');
+  
+        //cuenta seleccionada en transferAccount
+          this.storage.remove('cuentaTransferSelected');
+  
+          this.storage.remove('selectedAccount');
+          
+          this.navCtrl.push('RutaPagosPage');*/
+    };
+    TabsPage.prototype.changeTabTransfer = function () {
+        //this.navCtrl.push('TransferPage');
+    };
+    TabsPage.prototype.changeTabinbox = function () {
+        this.navCtrl.push("InboxPage");
+    };
+    return TabsPage;
+}());
+TabsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-tabs',template:/*ion-inline-start:"D:\PYT\development2\AppAuthenticator\src\pages\tabs\tabs.html"*/'<ion-tabs [selectedIndex]="index" cache-view="false" color="tabs">\n  <ion-tab [root]="tab1Root" tabTitle="{{ \'Tabs.inbox\' | translate }}" tabIcon="ios-archive" (ionSelect)="changeTabinbox()" ></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="{{ \'Tabs.otp\' | translate }}" tabIcon="ios-key" (ionSelect)="changeTabTransfer()"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="{{ \'Tabs.tarjeta\' | translate }}" tabIcon="ios-keypad" (ionSelect)="changePaysTab()"></ion-tab>\n  <ion-tab [root]="tab4Root" tabTitle="{{ \'Tabs.qr\' | translate }}" tabIcon="ios-qr-scanner-outline" (ionSelect)="changeTab()"></ion-tab>\n  <ion-tab [root]="tab5Root" tabTitle="{{ \'Tabs.tk\' | translate }}" tabIcon="ios-repeat"></ion-tab> \n  <ion-tab [root]="tab6Root" tabTitle="TK-QR" tabIcon="ios-repeat"></ion-tab>\n  <ion-tab [root]="tab7Root" tabTitle="U.S" tabIcon="ios-lock"></ion-tab>\n  <ion-tab [root]="tab8Root" tabTitle="{{ \'validacionPos.titulo\' | translate }}" tabIcon="ios-checkbox-outline"></ion-tab>    \n  <ion-tab [root]="tab9Root" tabTitle="Desafiliar" tabIcon="ios-mail-outline"></ion-tab>\n</ion-tabs>'/*ion-inline-end:"D:\PYT\development2\AppAuthenticator\src\pages\tabs\tabs.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]])
+], TabsPage);
+
+//# sourceMappingURL=tabs.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=4.js.map

@@ -1,0 +1,51 @@
+{
+  "_from": "@ionic-native/touch-id",
+  "_id": "@ionic-native/touch-id@4.15.0",
+  "_inBundle": false,
+  "_integrity": "sha512-mr7qMfjRpH/AS8vU78wd64r9WOpVemchJr73q+9U2cYwKAoan30p79iRJNfRCE7c1IotET+yTdTTXBqeDcroSA==",
+  "_location": "/@ionic-native/touch-id",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@ionic-native/touch-id",
+    "name": "@ionic-native/touch-id",
+    "escapedName": "@ionic-native%2ftouch-id",
+    "scope": "@ionic-native",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@ionic-native/touch-id/-/touch-id-4.15.0.tgz",
+  "_shasum": "eee08567a72db14cd8197c25714a050f723b6a5f",
+  "_spec": "@ionic-native/touch-id",
+  "_where": "D:\\PYT\\development\\workspace2\\authApp",
+  "author": {
+    "name": "ionic"
+  },
+  "bugs": {
+    "url": "https://github.com/ionic-team/ionic-native/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Ionic Native - Native plugins for ionic apps",
+  "homepage": "https://github.com/ionic-team/ionic-native#readme",
+  "license": "MIT",
+  "module": "index.js",
+  "name": "@ionic-native/touch-id",
+  "peerDependencies": {
+    "@ionic-native/core": "^4.11.0",
+    "@angular/core": "*",
+    "rxjs": "^5.5.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionic-team/ionic-native.git"
+  },
+  "typings": "index.d.ts",
+  "version": "4.15.0"
+}

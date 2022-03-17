@@ -1,0 +1,54 @@
+{
+  "_from": "AesUtil",
+  "_id": "AesUtil@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-ZtIZhSOX7uTkG1NSI9E9E3tneMk=",
+  "_location": "/AesUtil",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "AesUtil",
+    "name": "AesUtil",
+    "escapedName": "AesUtil",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/AesUtil/-/AesUtil-0.0.1.tgz",
+  "_shasum": "66d219852397eee4e41b535223d13d137b6778c9",
+  "_spec": "AesUtil",
+  "_where": "D:\\PYT\\development\\workspace3\\AppAuthenticator\\authApp",
+  "author": {
+    "name": "Lomachuk Igor"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "npm i --save aesUtil",
+  "engines": {
+    "node": "^4.4.0"
+  },
+  "license": "MIT",
+  "name": "AesUtil",
+  "version": "0.0.1",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": "^4.4.0"
+      },
+      "pkgid": "AesUtil@0.0.1"
+    },
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": "^4.4.0"
+      },
+      "pkgid": "AesUtil@0.0.1"
+    }
+  ]
+}

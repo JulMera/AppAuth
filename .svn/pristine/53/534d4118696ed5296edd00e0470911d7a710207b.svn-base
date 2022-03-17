@@ -1,0 +1,57 @@
+{
+  "_from": "@types/gulp@^3.8.33",
+  "_id": "@types/gulp@3.8.37",
+  "_inBundle": false,
+  "_integrity": "sha512-M358s75sr7LBdLAZ06wU4Y11yZ/5tAQDHFD8l4TMYXbhc5n/NWdDrfTiaIcX1g1X2eKThPNdrnGrB4eMqG+qRw==",
+  "_location": "/@types/gulp",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@types/gulp@^3.8.33",
+    "name": "@types/gulp",
+    "escapedName": "@types%2fgulp",
+    "scope": "@types",
+    "rawSpec": "^3.8.33",
+    "saveSpec": null,
+    "fetchSpec": "^3.8.33"
+  },
+  "_requiredBy": [
+    "/@ionic/cli-utils"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/gulp/-/gulp-3.8.37.tgz",
+  "_shasum": "e1073c146890eead74f3c0a44a179235192ae1ce",
+  "_spec": "@types/gulp@^3.8.33",
+  "_where": "D:\\PYT\\development2\\AppAuthenticator\\node_modules\\@ionic\\cli-utils",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Drew Noakes",
+      "url": "https://drewnoakes.com"
+    }
+  ],
+  "dependencies": {
+    "@types/node": "*",
+    "@types/orchestrator": "*",
+    "@types/vinyl": "*"
+  },
+  "deprecated": false,
+  "description": "TypeScript definitions for Gulp",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/gulp",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/gulp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "directory": "types/gulp"
+  },
+  "scripts": {},
+  "typeScriptVersion": "3.6",
+  "types": "index.d.ts",
+  "typesPublisherContentHash": "d684d6f9d3797d116bd4eb40b4348484353e223c5f7badb490a6790854f83b07",
+  "version": "3.8.37"
+}

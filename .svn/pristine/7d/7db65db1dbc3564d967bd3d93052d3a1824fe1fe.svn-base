@@ -1,0 +1,1847 @@
+webpackJsonp([16],{
+
+/***/ 166:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UtilsProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_http_http__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_crypto_js__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_crypto_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_dba_dba__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ng_idle_core__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_device__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__config_params_app__ = __webpack_require__(322);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+  Generated class for the UtilsProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var UtilsProvider = (function () {
+    function UtilsProvider(http, storage, translate, alertCtrl, httpProvi, app, platform, statusBar, splashScreen, dba, idle, device, loadingCtrl) {
+        var _this = this;
+        this.http = http;
+        this.storage = storage;
+        this.translate = translate;
+        this.alertCtrl = alertCtrl;
+        this.httpProvi = httpProvi;
+        this.app = app;
+        this.platform = platform;
+        this.statusBar = statusBar;
+        this.splashScreen = splashScreen;
+        this.dba = dba;
+        this.idle = idle;
+        this.device = device;
+        this.loadingCtrl = loadingCtrl;
+        this.userLogin = ""; //se usa para el usuario demo
+        this.deviceId = ""; //se usapara consultar el id del dispositivo
+        this.fk = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        this.separator = "%20%BA";
+        this.company = "1";
+        this.channel = "APP";
+        this.lang = "en_us";
+        this.langStart = "en_us";
+        this.patterEmail = '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$';
+        this.patterText = "[:|;|,|\\|àèìòù|áéíóú|ü|ÁÉÍÓÚ|ÀÈÌÒÙ|Ü|ñ|Ñ|.|_|?|/|*|0-9a-zA-Z| ]";
+        this.opt_validator = "*";
+        this.procesoOTP = 0; //desde aqui obtenemos el valor de la variable de sesion
+        this.cont = 1;
+        this.temp = 0;
+        /*
+          nuevas variables 2019
+        */
+        this.iv = "F27D5C9927726BCEFE7510B1BDD3D137";
+        this.salt = "3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
+        // Variables para el sessionTimeout
+        this.idleState = 'Not started.';
+        this.timedOut = false;
+        this.navCtrl = app.getActiveNav();
+        this.storage.get('iter').then(function (val) {
+            _this.iter = val;
+        });
+        this.storage.get('arrayDir').then(function (val) {
+            _this.arrayDir = val;
+        });
+        this.storage.get('factor').then(function (val) {
+            _this.factor = val;
+        });
+        this.storage.get('posDir').then(function (val) {
+            _this.posDir = val;
+        });
+        this.storage.get('procesoOTP').then(function (val) {
+            _this.procesoOTP = val;
+        });
+        // this.searchIdDevice();
+    }
+    UtilsProvider.prototype.getProcesoOTP = function () {
+        var _this = this;
+        this.storage.get('procesoOTP').then(function (val) {
+            if (val != null) {
+                _this.procesoOTP = val;
+            }
+            else {
+                _this.procesoOTP = 0;
+            }
+        });
+        return this.procesoOTP;
+    };
+    UtilsProvider.prototype.getLanguage = function () {
+        var _this = this;
+        this.storage.get('lenguaje').then(function (val) {
+            _this.lang = val;
+        });
+        if (this.lang == 'undefined' || this.lang == null || this.lang == "") {
+            this.lang = this.langStart;
+        }
+        return this.lang;
+    };
+    UtilsProvider.prototype.getSessionId = function () {
+        var _this = this;
+        this.storage.get('sessionId').then(function (val) {
+            _this.sessionId = val;
+        });
+        return this.sessionId;
+    };
+    UtilsProvider.prototype.setSessionId = function (sid) {
+        this.sessionId = sid;
+    };
+    UtilsProvider.prototype.getCommands = function (pos) {
+        /**this.storage.get('commands').then((val) => {
+         this.commandLst = val;
+         this.cmd = this.commandLst[pos];
+        });  */
+        return this.commandLst[pos];
+    };
+    UtilsProvider.prototype.setCommands = function (param) {
+        this.commandLst = param;
+    };
+    //Metodo para obtencion de los property en los alertController
+    UtilsProvider.prototype.alertCampos = function (param) {
+        var alertFecha = this.getMessageLanguage(param);
+        var alert = this.alertCtrl.create({
+            title: this.getMessageLanguage("logout.message"),
+            message: alertFecha,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    /**
+     * @date 18/05/2018
+     * @author jfonseca
+     * @description Muestra el msj que envia el servidor en el alert de ionic (sin traducir en msj)
+     * @param
+     */
+    UtilsProvider.prototype.alertServidor = function (param) {
+        var alertFecha = this.getMessageLanguage(param);
+        var alert = this.alertCtrl.create({
+            title: this.getMessageLanguage("logout.message"),
+            message: param,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    /**
+     * Metodo que se encarga de devolver el valor traducido
+     * ingresado en el json
+     * @param param
+     */
+    UtilsProvider.prototype.getMessageLanguage = function (param) {
+        var textTraslate;
+        this.translate.get(param).subscribe(function (value) {
+            textTraslate = value;
+        });
+        return textTraslate;
+    };
+    //Metodo de confirmación
+    UtilsProvider.prototype.presentConfirm = function (url) {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: this.getMessageLanguage("logout.message"),
+            message: this.getMessageLanguage("logout.titulo"),
+            buttons: [
+                {
+                    text: this.getMessageLanguage("confirm.btnCancelar"),
+                    handler: function (data) {
+                        if (_this.getMessageLanguage("confirm.btnCancelar")) {
+                        }
+                    }
+                },
+                {
+                    text: this.getMessageLanguage("confirm.btnAceptar"),
+                    handler: function (data) {
+                        if (_this.getMessageLanguage("confirm.btnAceptar")) {
+                            _this.logout();
+                            //this.navCtrl.push("LoginPage");  
+                            //this.translate.use("en_us");
+                            //this.navCtrl.popToRoot(); 
+                            _this.navCtrl.push("LoginPage");
+                        }
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    //Limpia todas las variables de sesion
+    UtilsProvider.prototype.cleanAll = function () {
+        this.storage.clear();
+    };
+    //se limpian las Variables de sesión this.storage.remove(''); y el sessionId
+    UtilsProvider.prototype.clearVariableSesion = function () {
+        this.storage.clear();
+        this.sessionId = null;
+    };
+    //Metodo para salir del aplicativo
+    UtilsProvider.prototype.logout = function () {
+        this.clearVariableSesion();
+        this.storage.remove('procesoOTP');
+        this.storage.clear();
+        //this.navCtrl.popToRoot(); 
+        this.navCtrl.push("LoginPage");
+    };
+    //Metodo para validar el E-mail
+    UtilsProvider.prototype.validar_email = function (email) {
+        var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email) ? true : false;
+    };
+    UtilsProvider.prototype.encodePass = function (pass) {
+        var wordArray = __WEBPACK_IMPORTED_MODULE_9_crypto_js__["enc"].Utf8.parse(pass);
+        var passw = __WEBPACK_IMPORTED_MODULE_9_crypto_js__["enc"].Base64.stringify(wordArray);
+        return passw;
+    };
+    UtilsProvider.prototype.decodeText = function (text) {
+        var words = __WEBPACK_IMPORTED_MODULE_9_crypto_js__["enc"].Base64.parse(text);
+        var textString = __WEBPACK_IMPORTED_MODULE_9_crypto_js__["enc"].Utf8.stringify(words);
+        return textString;
+    };
+    UtilsProvider.prototype.encodeUser = function (user) {
+        var wordArray = __WEBPACK_IMPORTED_MODULE_9_crypto_js__["enc"].Utf8.parse(user);
+        var usuario = __WEBPACK_IMPORTED_MODULE_9_crypto_js__["enc"].Base64.stringify(wordArray);
+        return usuario;
+    };
+    //Metodo del alertController para obtener info de los property
+    UtilsProvider.prototype.presentAlert = function (mensaje) {
+        var alertTitle;
+        this.translate.get(mensaje).subscribe(function (value) {
+            alertTitle = value;
+        });
+        var alert = this.alertCtrl.create({
+            //title: alertTitle,
+            title: this.getMessageLanguage("logout.message"),
+            message: this.getMessageLanguage(mensaje),
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    UtilsProvider.prototype.presentAlert2 = function (mensaje) {
+        var alert = this.alertCtrl.create({
+            //title: alertTitle,
+            title: this.getMessageLanguage("logout.message"),
+            message: mensaje,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    //obtención de los property sin los alert
+    UtilsProvider.prototype.valorProperty = function (palabra) {
+        var mensaje;
+        this.translate.get(palabra).subscribe(function (value) {
+            mensaje = value;
+        });
+        return mensaje;
+    };
+    //Metodo para salir de la App 
+    UtilsProvider.prototype.outApp = function (page) {
+        var _this = this;
+        var mensaje1 = this.valorProperty("logout.message");
+        var mensaje2 = this.valorProperty("outApp2");
+        var cancelar = this.valorProperty("confirm.btnCancelar");
+        var aceptar = this.valorProperty("confirm.btnAceptar");
+        this.platform.ready().then(function () {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            _this.statusBar.styleDefault();
+            _this.splashScreen.hide();
+        });
+        this.platform.registerBackButtonAction(function () {
+            // Catches the active view
+            var nav = _this.app.getActiveNavs()[0];
+            var activeView = nav.getActive();
+            // Checks if can go back before show up the alert
+            //activeView.name === 'InboxPage'
+            if (activeView.name === page) {
+                if (nav.canGoBack()) {
+                    nav.pop();
+                }
+                else {
+                    var alert_1 = _this.alertCtrl.create({
+                        title: mensaje1,
+                        message: mensaje2,
+                        buttons: [{
+                                text: cancelar,
+                                role: 'cancel',
+                                handler: function () {
+                                    //this.nav.setRoot('HomePage');
+                                    console.log('Salida Cancelada!');
+                                }
+                            }, {
+                                text: aceptar,
+                                handler: function () {
+                                    //this.platform.exitApp();
+                                    _this.storage.clear();
+                                    _this.navCtrl.push("LoginPage");
+                                }
+                            }]
+                    });
+                    alert_1.present();
+                }
+            }
+        });
+    };
+    //Metodo para salir de la App e ir al login
+    UtilsProvider.prototype.exitApp = function (page) {
+        var _this = this;
+        var mensaje1 = this.valorProperty("logout.message");
+        var mensaje2 = this.valorProperty("outApp1");
+        var cancelar = this.valorProperty("confirm.btnCancelar");
+        var aceptar = this.valorProperty("confirm.btnAceptar");
+        this.platform.ready().then(function () {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            _this.statusBar.styleDefault();
+            _this.splashScreen.hide();
+        });
+        this.platform.registerBackButtonAction(function () {
+            // Catches the active view
+            var nav = _this.app.getActiveNavs()[0];
+            var activeView = nav.getActive();
+            // Checks if can go back before show up the alert
+            //activeView.name === 'InboxPage'
+            if (activeView.name === page) {
+                if (nav.canGoBack()) {
+                    nav.pop();
+                }
+                else {
+                    var alert_2 = _this.alertCtrl.create({
+                        title: mensaje1,
+                        message: mensaje2,
+                        buttons: [{
+                                text: cancelar,
+                                role: 'cancel',
+                                handler: function () {
+                                    //this.nav.setRoot('HomePage');
+                                    console.log('Salida Cancelada!');
+                                }
+                            }, {
+                                text: aceptar,
+                                handler: function () {
+                                    _this.storage.clear();
+                                    _this.platform.exitApp();
+                                    //this.navCtrl.push("LoginPage");
+                                }
+                            }]
+                    });
+                    alert_2.present();
+                }
+            }
+        });
+    };
+    UtilsProvider.prototype.changePuntoComa = function (text) {
+        var temp;
+        var newModel;
+        temp = text;
+        newModel = temp.replace(",", ".");
+        return newModel;
+    };
+    UtilsProvider.prototype.methodAesUtils = function () {
+        var iterationCount = 1000;
+        var keySize = 128;
+        var passphrase = "323w0rk5";
+        var plaintext = "mensaje";
+        //var iv = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
+        //var salt = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
+        //var iv="F27D5C9927726BCEFE7510B1BDD3D137";
+        //var salt ="3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
+        var aesUtil = new AesUtil(128, 1000);
+        var ciphertext = aesUtil.encrypt(this.salt, this.iv, passphrase, plaintext);
+        //alert("iv->"+iv);
+        //alert("textciphred->"+ciphertext);
+    };
+    UtilsProvider.prototype.encrypMasterKey = function () {
+        //this.dba.createDataBaseFile();
+        this.passphrase = "323w0rk5";
+        //var iv = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
+        //var salt = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
+        //var iv="F27D5C9927726BCEFE7510B1BDD3D137";
+        //var salt ="3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
+        var aesUtil = new AesUtil(128, 1000);
+        var ciphertext = aesUtil.encrypt(this.salt, this.iv, this.passphrase, this.passphrase);
+        //this.encryptMasterKey = ciphertext;
+        this.dba.actualizarD1(ciphertext);
+        //alert("this.encryptMasterKey: "+ciphertext);
+        //alert("iv->"+iv);
+        //alert("textciphred->"+ciphertext);
+    };
+    UtilsProvider.prototype.decryptMasterKey = function () {
+        //alert("decryptMasterKey");
+        //this.dba.createDataBaseFile();
+        //var passphrase   = "323w0rk5";
+        //var iv = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
+        //var salt = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
+        //var iv="F27D5C9927726BCEFE7510B1BDD3D137";
+        //var salt ="3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
+        var aesUtil = new AesUtil(128, 1000);
+        var consultaD1Encrypt = this.dba.obtenerD1();
+        //alert("consultaD1Encrypt: "+consultaD1Encrypt);
+        var ciphertext = aesUtil.decrypt(this.salt, this.iv, this.passphrase, consultaD1Encrypt);
+        //alert("decryptMasterKey: "+ciphertext);
+        //alert("iv->"+iv);
+        //alert("textciphred->"+ciphertext);
+    };
+    // Metodo para iniciar con el session timeout
+    UtilsProvider.prototype.initTimeOut = function () {
+        //alert("Pantalla: "+pantalla);
+        var _this = this;
+        var minutos = 5;
+        this.idle.setIdle(minutos); //after 5 sec idle 
+        this.idle.setTimeout(minutos * 60); //5min countdown
+        this.idle.setInterrupts(__WEBPACK_IMPORTED_MODULE_11__ng_idle_core__["a" /* DEFAULT_INTERRUPTSOURCES */]);
+        this.idle.onIdleEnd.subscribe(function () { return _this.idleState = 'No longer idle.'; });
+        this.cont = 1;
+        this.temp = 0;
+        // alert("Cont fuera: "+this.cont+"\n temp: "+this.temp);
+        if (this.cont == 1) {
+            this.idle.onTimeout.subscribe(function () {
+                _this.idleState = 'Timed out!';
+                _this.timedOut = true;
+                //alert("cont dentro: "+this.cont+"\n temp: "+this.temp);
+                //this.cont = this.cont + 1;
+                if (_this.temp === 0) {
+                    //this.alertTimeout("timeOut.Msj");  
+                    //this.navCtrl.pop();  //go to logout page after 5 min idle.
+                    _this.salirApp();
+                    _this.temp = 1;
+                }
+                _this.cont = 0;
+                // alert("cont sale: "+this.cont+"\n temp: "+this.temp);  
+                return true;
+            });
+        }
+        this.idle.onIdleStart.subscribe(function () { return _this.idleState = 'You\'ve gone idle!'; });
+        this.idle.onTimeoutWarning.subscribe(function (countdown) {
+            var data = countdown / 60;
+            _this.min = data.toString().split('.')[0];
+            _this.sec = parseFloat(0 + '.' + data.toString().split('.')[1]) * 60;
+            _this.sec = (Math.round(_this.sec * 100) / 100);
+            //console.log("mensaje=countdown>"+countdown);
+            _this.idleState = 'You\'ll logout in ' + _this.min + ' min ' + _this.sec + '  seconds!';
+        });
+        this.reload();
+        return false;
+    };
+    UtilsProvider.prototype.reload = function () {
+        this.idle.watch();
+        this.idleState = 'Started.';
+        this.timedOut = false;
+    };
+    UtilsProvider.prototype.salirApp = function () {
+        this.alertTimeout("timeOut.Msj");
+        this.navCtrl.pop(); //go to logout page after 5 min idle.
+    };
+    UtilsProvider.prototype.alertTimeout = function (mensaje) {
+        var _this = this;
+        var alertTitle;
+        this.translate.get(mensaje).subscribe(function (value) {
+            alertTitle = value;
+        });
+        var alert = this.alertCtrl.create({
+            //title: alertTitle,
+            title: this.getMessageLanguage("timeOut.Title"),
+            message: alertTitle,
+            //buttons: [ 'OK' ]
+            buttons: [{
+                    text: 'OK',
+                    handler: function () {
+                        //this.platform.exitApp();
+                        _this.storage.clear();
+                        _this.navCtrl.push("LoginPage");
+                        //this.navCtrl.popToRoot();  
+                        //console.log("navega");
+                    }
+                }]
+        });
+        alert.present();
+    };
+    //Validaciones para el manejo de errores enviados por peticiones de la App
+    UtilsProvider.prototype.errorControl = function (error) {
+        switch (error) {
+            case '0000':
+                break;
+            case '000':
+                break;
+            case '01':
+                this.presentAlert("mensaje0001");
+                break;
+            case '008':
+                this.presentAlert("validacion008");
+                this.navCtrl.push("InboxPage");
+                break;
+            case '011':
+                this.presentAlert("usuario bloqueado, por favor comuniquese con el banco");
+                this.navCtrl.push("LoginPage");
+                break;
+            case '046':
+                //user secure has expired
+                this.presentAlert("userSecurity.msj046");
+                break;
+            case '101':
+                this.presentAlert('mensajeSesion');
+                this.storage.clear();
+                this.clearVariableSesion();
+                this.navCtrl.push("LoginPage");
+                break;
+            case '301':
+                this.presentAlert("mensaje301");
+                break;
+            case '401':
+                this.presentAlert("mensaje401");
+                break;
+            case '402':
+                //this.presentAlert("mensaje402");
+                this.navCtrl.push('MenuPage');
+                break;
+            case '403':
+                this.presentAlert("mensaje403");
+                this.navCtrl.push("InboxPage");
+                break;
+            case '404':
+                this.presentAlert("mensaje404");
+                break;
+            case '406':
+                this.presentAlert("mensaje406");
+                break;
+            case '501':
+                this.presentAlert("mensaje501");
+                break;
+            case '502':
+                this.presentAlert("mensaje502");
+                break;
+            case '503':
+                this.presentAlert("mensaje503");
+                break;
+            case '908':
+                this.presentAlert("message.code908");
+                break;
+            case '9000':
+                this.presentAlert("mensaje9000");
+                break;
+            case '9001':
+                this.presentAlert("mensaje9001");
+                break;
+            case '9002':
+                this.presentAlert("mensaje9002");
+                break;
+            case '9003':
+                this.presentAlert("tk.error9003");
+                break;
+            case '0004':
+                //this.presentAlert("Login.consultaDeviceId");
+                this.presentAlert("mensaje0004");
+                break;
+            default:
+                this.presentAlert("Error: " + error);
+                break;
+        }
+    };
+    UtilsProvider.prototype.presentLoading = function () {
+        var msj = this.getMessageLanguage("inbox.loanding");
+        var loading = this.loadingCtrl.create({
+            content: msj
+        });
+        loading.present();
+        setTimeout(function () {
+            loading.dismiss();
+        }, 3000);
+    };
+    UtilsProvider.prototype.variablesGlobales = function (variable) {
+        var respuesta;
+        switch (variable) {
+            case "emisorApp":
+                //respuesta = "BACOLOMBIA";
+                respuesta = "PYT";
+                break;
+            case "appProcess":
+                //respuesta = "E";
+                respuesta = "I";
+                break;
+        }
+        console.log("mensaje=>variablesGlobales" + respuesta);
+        return respuesta;
+    };
+    UtilsProvider.prototype.infoDevice = function () {
+        var data;
+        if (this.userLogin.toLowerCase() == __WEBPACK_IMPORTED_MODULE_13__config_params_app__["a" /* infoTesting */].userTesting.toLowerCase()) {
+            data = __WEBPACK_IMPORTED_MODULE_13__config_params_app__["a" /* infoTesting */].deviceTesting;
+        }
+        else {
+            var temp;
+            temp = this.device.model;
+            var newModel;
+            newModel = this.changePuntoComa(temp);
+            data = {
+                "uid": this.device.uuid,
+                // "iddev": this.deviceId,
+                "model": newModel,
+                "cordova": this.device.cordova,
+                "plataform": this.device.platform,
+                "version": this.device.version,
+                "manufacturer": this.device.manufacturer,
+                "serial": this.device.serial,
+                "isVirtual": this.device.isVirtual
+            };
+            /*  if (this.deviceId == "" || this.deviceId == null || this.deviceId == undefined) {
+                delete data.iddev;
+              }*/
+        }
+        console.log("mensaje=>dispositivo:" + JSON.stringify(data));
+        return data;
+    };
+    UtilsProvider.prototype.searchIdDevice = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            if (_this.userLogin.toLowerCase() == __WEBPACK_IMPORTED_MODULE_13__config_params_app__["a" /* infoTesting */].userTesting.toLowerCase()) {
+                _this.deviceId = __WEBPACK_IMPORTED_MODULE_13__config_params_app__["a" /* infoTesting */].deviceIdTesting;
+                resolve(_this.deviceId);
+            }
+            else {
+                _this.dba.deviceExists().then(function (idFinger) {
+                    _this.deviceId = idFinger;
+                    console.log("mensaje=> searchIdDevice  " + idFinger);
+                    resolve(_this.deviceId);
+                }, function (error) {
+                    console.log("mensaje=>error searchIdDevice  " + error);
+                    reject(error);
+                });
+            }
+        });
+    };
+    return UtilsProvider;
+}());
+UtilsProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_6__providers_http_http__["a" /* HttpProvider */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* App */],
+        __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_10__providers_dba_dba__["a" /* DbaProvider */], __WEBPACK_IMPORTED_MODULE_11__ng_idle_core__["b" /* Idle */], __WEBPACK_IMPORTED_MODULE_12__ionic_native_device__["a" /* Device */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["g" /* LoadingController */]])
+], UtilsProvider);
+
+//# sourceMappingURL=utils.js.map
+
+/***/ }),
+
+/***/ 168:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DbaProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_sqlite__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+//import { HttpClient } from '@angular/common/http';
+
+
+
+
+
+
+/*
+  Generated class for the DbaProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var DbaProvider = (function () {
+    function DbaProvider(sqlite, storage, device, platform) {
+        var _this = this;
+        this.sqlite = sqlite;
+        this.storage = storage;
+        this.device = device;
+        this.platform = platform;
+        this.saveGC = new Array();
+        //console.log('Hello DbaProvider Provider');
+        this.dataBaseStatus = new __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["BehaviorSubject"](false);
+        this.platform.ready().then(function () {
+            _this.createDataBaseFile();
+            _this.searchIdDevice("optional"); // se realiza esta consulta para loginFinger
+        });
+    }
+    DbaProvider.prototype.createDataBaseFile = function () {
+        var _this = this;
+        this.sqlite.create({
+            name: 'authDb.db',
+            location: 'default'
+        })
+            .then(function (db) {
+            _this.dba = db;
+            console.log("base de datos creada");
+            _this.createTables();
+        })
+            .catch(function (e) { return console.log("Error al crear la base de datos " + e); });
+    };
+    DbaProvider.prototype.createTables = function () {
+        var _this = this;
+        this.dba.executeSql("CREATE TABLE IF NOT EXISTS 'USUARIO' ( 'optional01' TEXT, 'grilla' TEXT, 'fechaHora' TEXT, 'time_01' NUMBER,'requestId' TEXT, 'dUno' TEXT)", [])
+            .then(function () {
+            console.log("tabla user creada");
+            _this.dataBaseStatus.next(true);
+        })
+            .catch(function (e) { return console.log("Error al crear la tabla " + e); });
+        this.dba.executeSql("CREATE TABLE IF NOT EXISTS 'ADMIN_DEVICE' ( 'ID' TEXT, 'DATO1' TEXT,'DATO2' TEXT, 'DATO3' TEXT)", [])
+            .then(function () {
+            console.log("tabla user creada ADMIN_DEVICE");
+            _this.dataBaseStatus.next(true);
+        })
+            .catch(function (e) { return console.log("Error al crear la tabla ADMIN_DEVICE" + e); });
+    };
+    DbaProvider.prototype.getStatusDataBase = function () {
+        return this.dataBaseStatus.asObservable();
+    };
+    DbaProvider.prototype.guardarBD = function (opcion01) {
+        var _this = this;
+        //alert("guardarBD: "+opcion01);
+        this.optinal_01 = opcion01;
+        //Obtención del userName - Ya viene encriptado
+        this.storage.get('userName').then(function (val) {
+            if (val != null) {
+                _this.userName = val;
+            }
+        });
+        //Obtención de la grilla - Ya viene ordenada
+        this.storage.get('saveGC').then(function (val) {
+            if (val != null) {
+                _this.saveGC = val;
+            }
+        });
+        //Obtención del requestId - viene del login
+        this.storage.get('REQUESTID').then(function (val) {
+            if (val != null) {
+                _this.idRequest = val;
+            }
+        });
+        var userName = this.userName;
+        var grilla = new Array();
+        grilla = this.saveGC;
+        //var fechaHora: string;
+        var requestId = this.idRequest;
+        var f = new Date();
+        var fecha;
+        var hora;
+        var fechaHora;
+        var time;
+        fecha = f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear();
+        hora = f.getHours() + ":" + f.getMinutes() + "m" + f.getSeconds() + "s";
+        fechaHora = fecha + ' - ' + hora;
+        time = f.getFullYear() + (f.getMonth() + 1) + f.getDate() + f.getHours() + +f.getMinutes() + f.getSeconds();
+        var stringSQL = "INSERT INTO 'USUARIO' (optional01, fechaHora, time_01) VALUES ('" + opcion01 + "', '" + fechaHora + "', '" + time + "')";
+        console.log(stringSQL);
+        this.dba.executeSql(stringSQL, [])
+            .then(function () {
+            console.log("se inserto con exito en user");
+        })
+            .catch(function (e) { return console.log("Error al guardar " + JSON.stringify(e)); });
+    };
+    //se guardan los datos que faltan despues de hacer el registro de afiliacion
+    DbaProvider.prototype.guardarDatosActualizados = function (grilla) {
+        //console.log("guardarDatosActualizados");
+        //Obtención de la grilla - Ya viene ordenada
+        /* this.storage.get('saveGC').then((val) => {
+           if(val != null){
+             this.saveGC = val;
+           }
+           });*/
+        //Obtención del requestId - viene del login
+        this.dba.executeSql("UPDATE 'USUARIO' SET grilla = '" + grilla + "' where time_01 = (select MAX(time_01) from USUARIO)", [])
+            .then(function () {
+            console.log("Modifico correctamente!");
+            //this.dba.executeSql('', [] )
+            //.then(() => console.log(''))
+            //.catch(e =>console.log("error al guardar en bd 1 "+e));
+        })
+            .catch(function (e) { return console.log("Error al guardar " + e); });
+    };
+    /**
+     * @argument
+     * @author sisjfl
+     * @date 01/10/2018
+     * @description Query to find deviceId on table User
+     */
+    DbaProvider.prototype.searchIdDevice = function (deviceId) {
+        var _this = this;
+        console.log("entro a consultar");
+        var sql = 'select optional01 from USUARIO where time_01 = (select MAX(time_01) from USUARIO) ';
+        var response = this.executeQuery(sql);
+        response.then(function (data) {
+            console.log("DATA " + JSON.stringify(data));
+            if (data.rows) {
+                if (data.rows.length > 0) {
+                    for (var i = 0; i < data.rows.length; i++) {
+                        deviceId = (data.rows.item(i).optional01);
+                        _this.optinal_01 = deviceId;
+                        console.log("mensaje=>optinal_01" + _this.optinal_01);
+                    }
+                }
+            }
+        })
+            .catch(function (e) { return console.log("Error al consultar " + JSON.stringify(e)); });
+        return this.optinal_01;
+    };
+    DbaProvider.prototype.executeQuery = function (sql) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dba.executeSql(sql, [])];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    DbaProvider.prototype.dropTable = function () {
+        var movies = [];
+        this.dba.executeSql('DELETE FROM USUARIO', [])
+            .then(function (data) {
+            if (data == null) {
+                return;
+            }
+        })
+            .catch(function (e) { return alert("Error al ELIMINAR " + JSON.stringify(e)); });
+        return movies;
+    };
+    /**
+   * @argument
+   * @author sisjfl
+   * @date 10/10/2018
+   * @description consultar grilla
+   */
+    DbaProvider.prototype.searchGrilla = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var sql = 'select grilla from USUARIO where time_01 = (select MAX(time_01) from USUARIO) ';
+            var response = _this.executeQueryGrilla(sql);
+            response.then(function (data) {
+                if (data.rows) {
+                    if (data.rows.length > 0) {
+                        for (var i = 0; i < data.rows.length; i++) {
+                            _this.queryGrilla = (data.rows.item(i).grilla);
+                            console.log("mensaje=>  searchGrilla  " + _this.queryGrilla);
+                            resolve(_this.queryGrilla);
+                        }
+                    }
+                }
+                else {
+                    resolve("");
+                }
+            })
+                .catch(function (e) {
+                console.log("Error al consultar " + JSON.stringify(e));
+                resolve("");
+            });
+        });
+        //return this.queryGrilla;
+    };
+    DbaProvider.prototype.executeQueryGrilla = function (sql) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dba.executeSql(sql, [])];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    /*
+      Apartir de aqui se crean todos los metodos nuevos del año 2019
+    */
+    /**
+    * @argument
+    * @author sisjfl
+    * @date 29/01/2019
+    * @description Se guarda la masterKey donde ya viene encriptada
+    */
+    DbaProvider.prototype.actualizarD1 = function (text) {
+        //this.guardarBD("optional");
+        this.dba.executeSql("UPDATE 'USUARIO' SET dUno = '" + text + "' where time_01 = (select MAX(time_01) from USUARIO)", [])
+            .then(function () {
+            console.log("Modifico correctamente!");
+        })
+            .catch(function (e) { return console.log("Error al Actualizar " + JSON.stringify(e)); });
+    };
+    /**
+   * @argument
+   * @author sisjfl
+   * @date 29/01/2019
+   * @description Se guarda la masterKey donde ya viene encriptada
+   */
+    DbaProvider.prototype.obtenerD1 = function () {
+        var _this = this;
+        var sql = "select dUno from USUARIO where time_01 = (select MAX(time_01) from USUARIO) ";
+        var response = this.executeQueryGrilla(sql);
+        response.then(function (data) {
+            if (data.rows) {
+                if (data.rows.length > 0) {
+                    for (var i = 0; i < data.rows.length; i++) {
+                        _this.queryD1 = (data.rows.item(i).dUno);
+                        console.log("this.queryD1: " + _this.queryD1);
+                    }
+                }
+            }
+        })
+            .catch(function (e) { return console.log("Error al consultar " + JSON.stringify(e)); });
+        return this.queryD1;
+    };
+    DbaProvider.prototype.searchIdFinger = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var deviceId;
+            var sql = 'select optional01 from USUARIO where time_01 = (select MAX(time_01) from USUARIO) ';
+            var response = _this.executeQuery(sql);
+            response.then(function (data) {
+                if (data.rows) {
+                    if (data.rows.length > 0) {
+                        for (var i = 0; i < data.rows.length; i++) {
+                            deviceId = (data.rows.item(i).optional01);
+                            _this.optinal_01 = deviceId;
+                            console.log("mensaje=>userNameDb:" + deviceId);
+                            resolve(deviceId);
+                        }
+                    }
+                    else {
+                        resolve("");
+                    }
+                }
+                else {
+                    resolve("");
+                }
+            })
+                .catch(function (e) { return console.log("Error al consultar " + JSON.stringify(e)); });
+        });
+    };
+    DbaProvider.prototype.deviceExists = function () {
+        var _this = this;
+        console.log("mensaje=> deviceExists entro");
+        return new Promise(function (resolve, reject) {
+            var deviceId;
+            var sql = 'select optional01 from USUARIO where time_01 = (select MAX(time_01) from USUARIO) ';
+            var response = _this.executeQuery(sql);
+            response.then(function (data) {
+                if (data.rows) {
+                    if (data.rows.length > 0) {
+                        for (var i = 0; i < data.rows.length; i++) {
+                            deviceId = (data.rows.item(i).optional01);
+                            _this.optinal_01 = deviceId;
+                            console.log("mensaje=>userNameDb:" + deviceId);
+                            resolve(deviceId);
+                        }
+                    }
+                    else {
+                        resolve("");
+                    }
+                }
+                else {
+                    resolve("");
+                }
+            })
+                .catch(function (e) {
+                console.log("Error al consultar " + JSON.stringify(e));
+                reject(e);
+            });
+        });
+    };
+    DbaProvider.prototype.searchDeviceConfig = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var sql = 'select ID ,DATO1 ,DATO2, DATO3 from ADMIN_DEVICE ';
+            var response = _this.executeQuery(sql);
+            response.then(function (data) {
+                if (data.rows) {
+                    if (data.rows.length > 0) {
+                        for (var i = 0; i < data.rows.length; i++) {
+                            var datos = {
+                                'ID': (data.rows.item(i).ID),
+                                'DATO1': (data.rows.item(i).DATO1),
+                                'DATO2': (data.rows.item(i).DATO2),
+                                'DATO3': (data.rows.item(i).DATO3)
+                            };
+                            console.log("sql=> " + JSON.stringify(datos));
+                            resolve(datos);
+                        }
+                    }
+                    else {
+                        resolve("");
+                    }
+                }
+                else {
+                    resolve("");
+                }
+            })
+                .catch(function (e) { return console.log("Error al consultar ADMIN_DEVICE" + JSON.stringify(e)); });
+        });
+    };
+    DbaProvider.prototype.deleteDeviceConfig = function () {
+        this.dba.executeSql('DELETE FROM ADMIN_DEVICE', [])
+            .then(function (data) {
+            console.log("Elimino correctamente ADMIN_DEVICE");
+            return;
+        })
+            .catch(function (e) { return console.log("Error al ELIMINAR " + JSON.stringify(e)); });
+    };
+    DbaProvider.prototype.saveDeviceConfig = function (ID, DATO1, DATO2, DATO3) {
+        var stringSQL = "INSERT INTO 'ADMIN_DEVICE' (ID ,DATO1 ,DATO2, DATO3) VALUES ('" + ID + "', '" + DATO1 + "', '" + DATO2 + "', '" + DATO3 + "')";
+        this.dba.executeSql(stringSQL, [])
+            .then(function () {
+            console.log("se inserto con exito en saveDeviceConfig");
+        })
+            .catch(function (e) { return console.log("Error al guardar saveDeviceConfig" + JSON.stringify(e)); });
+    };
+    return DbaProvider;
+}());
+DbaProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_sqlite__["a" /* SQLite */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* Platform */]])
+], DbaProvider);
+
+//# sourceMappingURL=dba.js.map
+
+/***/ }),
+
+/***/ 169:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TasksServiceProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_sqlite__ = __webpack_require__(72);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/*
+  Generated class for the TasksServiceProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var TasksServiceProvider = (function () {
+    function TasksServiceProvider(http) {
+        this.http = http;
+        this.db = null;
+        this.db = new __WEBPACK_IMPORTED_MODULE_3__ionic_native_sqlite__["b" /* SQLiteObject */]("");
+    }
+    TasksServiceProvider.prototype.setDatabase = function (db) {
+        if (this.db === null) {
+            this.db = db;
+        }
+    };
+    TasksServiceProvider.prototype.createTable = function () {
+        var sql = 'CREATE TABLE IF NOT EXISTS AFILIACION(id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, pass TEXT)';
+        return this.db.executeSql(sql, []);
+    };
+    TasksServiceProvider.prototype.getAll = function () {
+        var sql = 'SELECT * FROM AFILIACION';
+        return this.db.executeSql(sql, [])
+            .then(function (response) {
+            var tasks = [];
+            for (var index = 0; index < response.rows.length; index++) {
+                tasks.push(response.rows.item(index));
+            }
+            return Promise.resolve(tasks);
+        })
+            .catch(function (error) { return Promise.reject(error); });
+    };
+    TasksServiceProvider.prototype.create = function (task) {
+        var sql = 'INSERT INTO AFILIACION(user, pass) VALUES(?,?)';
+        return this.db.executeSql(sql, [task.user, task.pass]);
+    };
+    return TasksServiceProvider;
+}());
+TasksServiceProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+], TasksServiceProvider);
+
+//# sourceMappingURL=tasks-service.js.map
+
+/***/ }),
+
+/***/ 179:
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = 179;
+
+/***/ }),
+
+/***/ 226:
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"../pages/bandeja-menu/bandeja-menu.module": [
+		697,
+		15
+	],
+	"../pages/condiciones/condiciones.module": [
+		698,
+		14
+	],
+	"../pages/desafiliar/desafiliar.module": [
+		699,
+		13
+	],
+	"../pages/gc/gc.module": [
+		700,
+		12
+	],
+	"../pages/home/home.module": [
+		701,
+		11
+	],
+	"../pages/inbox/inbox.module": [
+		702,
+		10
+	],
+	"../pages/login/login.module": [
+		703,
+		9
+	],
+	"../pages/menu/menu.module": [
+		704,
+		8
+	],
+	"../pages/push/push.module": [
+		705,
+		7
+	],
+	"../pages/qr/qr.module": [
+		706,
+		6
+	],
+	"../pages/registro-afiliacion/registro-afiliacion.module": [
+		707,
+		5
+	],
+	"../pages/tabs/tabs.module": [
+		708,
+		4
+	],
+	"../pages/tk-qr/tk-qr.module": [
+		709,
+		3
+	],
+	"../pages/tk/tk.module": [
+		710,
+		2
+	],
+	"../pages/user-security/user-security.module": [
+		711,
+		1
+	],
+	"../pages/validacion-positiva/validacion-positiva.module": [
+		712,
+		0
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(ids[0]);
+	});
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = 226;
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ 322:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export appProcessConfig */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return infoTesting; });
+/* unused harmony export idDeviceProduccion */
+/* unused harmony export idDevicePruebasExterno */
+/* unused harmony export idDevicePruebasInterno */
+/* unused harmony export userTestingExt */
+/* unused harmony export userTestingInt */
+var appProcessConfig = "I";
+var infoTesting = {
+    deviceTesting: {
+        "iddev": "d03bdb6643prueba",
+        "model": "Moto G(5S)prueba",
+        "cordova": "7.1.4",
+        "plataform": "Android",
+        "version": "8.1.0",
+        "manufacturer": "motorola",
+        "serial": "ZY32prueba",
+        "isVirtual": "false"
+    },
+    deviceIdTesting: "h28416785a",
+    userTesting: "adminext",
+    passTesting: "zxcvbnm1@",
+    passProduccion: "zxcvbnm2@"
+};
+var idDeviceProduccion = "4v12uk2536"; //id deldispositivo registrado en produccion
+//id deldispositivo registrado en produccion
+var idDevicePruebasExterno = "h28416785a"; //id deldispositivo registrado en pruebas
+//id deldispositivo registrado en pruebas
+var idDevicePruebasInterno = "uhiv6xoywp"; //id deldispositivo registrado en pruebas 
+//id deldispositivo registrado en pruebas 
+var userTestingExt = "ADMINEXT"; //login del usuario admin externo
+//login del usuario admin externo
+var userTestingInt = "ADMININT"; //login del usuario admin interno
+//# sourceMappingURL=params.app.js.map
+
+/***/ }),
+
+/***/ 323:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(328);
+
+
+Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 328:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export createTranslateLoader */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_http_loader__ = __webpack_require__(676);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(678);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils_utils__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_http_http__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_forms__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_commands_commands__ = __webpack_require__(679);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_ionic2_calendar__ = __webpack_require__(680);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_device__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_network_interface__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_geolocation__ = __webpack_require__(315);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_network__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_http__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_sqlite__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_tasks_service_tasks_service__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_ngx_qrcode2__ = __webpack_require__(319);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_barcode_scanner__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_dba_dba__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_fingerprint_aio__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_touch_id__ = __webpack_require__(318);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_aes_256__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ng_idle_keepalive__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_keyboard__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_push__ = __webpack_require__(167);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Nuevo 2019
+
+
+
+
+function createTranslateLoader(http) {
+    return new __WEBPACK_IMPORTED_MODULE_5__ngx_translate_http_loader__["a" /* TranslateHttpLoader */](http, './assets/i18n/', '.json');
+}
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */]
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_15_ionic2_calendar__["a" /* NgCalendarModule */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_13__angular_forms__["a" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_12__angular_http__["c" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */],
+            __WEBPACK_IMPORTED_MODULE_29__ng_idle_keepalive__["a" /* NgIdleKeepaliveModule */],
+            __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */], {}, {
+                links: [
+                    { loadChildren: '../pages/bandeja-menu/bandeja-menu.module#BandejaMenuPageModule', name: 'BandejaMenuPage', segment: 'bandeja-menu', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/condiciones/condiciones.module#CondicionesPageModule', name: 'CondicionesPage', segment: 'condiciones', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/desafiliar/desafiliar.module#DesafiliarPageModule', name: 'DesafiliarPage', segment: 'desafiliar', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/gc/gc.module#GcPageModule', name: 'GcPage', segment: 'gc', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/inbox/inbox.module#InboxPageModule', name: 'InboxPage', segment: 'inbox', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/menu/menu.module#MenuPageModule', name: 'MenuPage', segment: 'menu', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/push/push.module#PushPageModule', name: 'PushPage', segment: 'push', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/qr/qr.module#QrPageModule', name: 'QrPage', segment: 'qr', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/registro-afiliacion/registro-afiliacion.module#RegistroAfiliacionPageModule', name: 'RegistroAfiliacionPage', segment: 'registro-afiliacion', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/tk-qr/tk-qr.module#TkQrPageModule', name: 'TkQrPage', segment: 'tk-qr', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/tk/tk.module#TkPageModule', name: 'TkPage', segment: 'tk', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/user-security/user-security.module#UserSecurityPageModule', name: 'UserSecurityPage', segment: 'user-security', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/validacion-positiva/validacion-positiva.module#ValidacionPositivaPageModule', name: 'ValidacionPositivaPage', segment: 'validacion-positiva', priority: 'low', defaultHistory: [] }
+                ]
+            }),
+            __WEBPACK_IMPORTED_MODULE_23_ngx_qrcode2__["a" /* NgxQRCodeModule */],
+            __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["b" /* TranslateModule */].forRoot({
+                loader: {
+                    provide: __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["a" /* TranslateLoader */],
+                    useFactory: (createTranslateLoader),
+                    deps: [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]]
+                }
+            })
+        ],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* IonicApp */]],
+        entryComponents: [
+            __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* MyApp */]
+        ],
+        providers: [
+            __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__["a" /* SplashScreen */],
+            __WEBPACK_IMPORTED_MODULE_21__ionic_native_sqlite__["a" /* SQLite */],
+            __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_30__ionic_native_keyboard__["a" /* Keyboard */],
+            __WEBPACK_IMPORTED_MODULE_11__providers_http_http__["a" /* HttpProvider */],
+            { provide: __WEBPACK_IMPORTED_MODULE_2__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["d" /* IonicErrorHandler */], },
+            __WEBPACK_IMPORTED_MODULE_11__providers_http_http__["a" /* HttpProvider */],
+            __WEBPACK_IMPORTED_MODULE_10__providers_utils_utils__["a" /* UtilsProvider */],
+            __WEBPACK_IMPORTED_MODULE_14__providers_commands_commands__["a" /* CommandsProvider */],
+            __WEBPACK_IMPORTED_MODULE_16__ionic_native_device__["a" /* Device */],
+            __WEBPACK_IMPORTED_MODULE_17__ionic_native_network_interface__["a" /* NetworkInterface */],
+            __WEBPACK_IMPORTED_MODULE_18__ionic_native_geolocation__["a" /* Geolocation */],
+            __WEBPACK_IMPORTED_MODULE_19__ionic_native_network__["a" /* Network */],
+            __WEBPACK_IMPORTED_MODULE_20__ionic_native_http__["a" /* HTTP */],
+            __WEBPACK_IMPORTED_MODULE_22__providers_tasks_service_tasks_service__["a" /* TasksServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_24__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
+            __WEBPACK_IMPORTED_MODULE_25__providers_dba_dba__["a" /* DbaProvider */],
+            __WEBPACK_IMPORTED_MODULE_26__ionic_native_fingerprint_aio__["a" /* FingerprintAIO */],
+            __WEBPACK_IMPORTED_MODULE_27__ionic_native_touch_id__["a" /* TouchID */],
+            __WEBPACK_IMPORTED_MODULE_28__ionic_native_aes_256__["a" /* AES256 */],
+            __WEBPACK_IMPORTED_MODULE_31__ionic_native_push__["a" /* Push */]
+        ]
+    })
+], AppModule);
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ 678:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_sqlite__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_tasks_service_tasks_service__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_push___ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_geolocation__ = __webpack_require__(315);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_http_http__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_utils_utils__ = __webpack_require__(166);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+//import { Keyboard } from '@ionic-native/keyboard';
+var MyApp = (function () {
+    //rootPage = 'AfiliacionPage'; 
+    //rootPage = 'SecurityOtpPage';
+    //rootPage = 'InboxPage';
+    //private navCtrl: NavController;
+    function MyApp(platform, statusBar, splashScreen, translateService, sqlite, push, storage, tasksService, app, alertCtrl, geolocation, http, utils) {
+        //this.navCtrl = app.getActiveNav();
+        var _this = this;
+        this.platform = platform;
+        this.statusBar = statusBar;
+        this.splashScreen = splashScreen;
+        this.translateService = translateService;
+        this.sqlite = sqlite;
+        this.push = push;
+        this.storage = storage;
+        this.tasksService = tasksService;
+        this.app = app;
+        this.alertCtrl = alertCtrl;
+        this.geolocation = geolocation;
+        this.http = http;
+        this.utils = utils;
+        this.rootPage = 'LoginPage';
+        this.platform.ready().then(function () {
+            //Language
+            _this.translateService.setDefaultLang('en_us');
+            _this.translateService.use('en_us');
+            _this.statusBar.styleDefault();
+            _this.splashScreen.hide();
+            _this.geolocation.getCurrentPosition().then(function (resp) {
+                _this.storage.set('latitud', resp.coords.latitude);
+                _this.storage.set('longitud', resp.coords.longitude);
+            }).catch(function (error) {
+                _this.storage.set('latitud', 0);
+                _this.storage.set('longitud', 0);
+            });
+            _this.push.hasPermission()
+                .then(function (res) {
+                //alert("res"+res)
+                if (res.isEnabled) {
+                    //alert('We have permission to send push notifications'); 
+                }
+                else {
+                    //alert('We do not have permission to send push notifications');
+                }
+            });
+            // inicializamos la configuración para android y ios
+            var options = {
+                android: {
+                    senderID: '663636742494',
+                    //foreground: 'true',
+                    forceShow: true,
+                    sound: 'true'
+                },
+                ios: {
+                    alert: true,
+                    badge: true,
+                    sound: 'false'
+                },
+                windows: {}
+            };
+            var pushObject = _this.push.init(options);
+            pushObject.on('notification').subscribe(function (notification) {
+                _this.storage.set('pushMensaje', notification);
+            });
+            pushObject.on('registration').subscribe(function (registration) {
+                var registrationId = registration.registrationId;
+                _this.storage.set('pushID', registrationId);
+            });
+            pushObject.on('error').subscribe(function (error) {
+                console.error('Error with Push plugin', error);
+            });
+        });
+        this.http.callServerP().then(function (res) {
+            console.log("mensaje=>Respuesta : " + JSON.stringify(res));
+            var respuesta = _this.utils.decodeText(res.key);
+            console.log("mensaje=>Respuesta2 : " + respuesta);
+            _this.http.salt = respuesta.split(",")[0];
+            _this.http.iv = respuesta.split(",")[1];
+            _this.http.passphrase = respuesta.split(",")[2];
+            _this.http.idkey = respuesta.split(",")[3];
+            console.log("mensaje=>key salt= " + _this.http.salt);
+            console.log("mensaje=>key iv= " + _this.http.iv);
+            console.log("mensaje=>key passphrase= " + _this.http.passphrase);
+            console.log("mensaje=>key idkey= " + _this.http.idkey);
+        }, function (error) {
+            console.log("mensaje=>1=" + error);
+            if (error) {
+                console.log("mensaje=>2=" + error);
+            }
+        })
+            .catch(function (error) {
+            if (error) {
+                console.log("mensaje=>3=" + error);
+            }
+        });
+    }
+    return MyApp;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */])
+], MyApp.prototype, "nav", void 0);
+MyApp = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        template: '<ion-nav [root]="rootPage"></ion-nav>'
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
+        __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_sqlite__["a" /* SQLite */], __WEBPACK_IMPORTED_MODULE_7__ionic_native_push___["a" /* Push */], __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_6__providers_tasks_service_tasks_service__["a" /* TasksServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_9__ionic_native_geolocation__["a" /* Geolocation */], __WEBPACK_IMPORTED_MODULE_10__providers_http_http__["a" /* HttpProvider */],
+        __WEBPACK_IMPORTED_MODULE_11__providers_utils_utils__["a" /* UtilsProvider */]])
+], MyApp);
+
+//# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 679:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommandsProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/*
+  Generated class for the CommandsProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var CommandsProvider = (function () {
+    function CommandsProvider(http) {
+        this.http = http;
+        this.E2ADMR43 = 0; //ya * transfer OTP 
+        this.E2ADMR608_1 = 1; //ya *
+        this.E2ADMR67PT = 2; //ya * 
+        this.E2ADMR81_1 = 3; //ya *
+        this.E2LSCR12A = 4; //ya *
+        this.E2LSCR210 = 5; //ya *
+        this.E2LSCR40D = 6; // no
+        this.E2LSCR69 = 7; // no
+        this.E2LSCR72 = 8; //ya *
+        this.E2LSCR89L = 9; //ya * 
+        this.E2LSMR6081 = 10; //ya * 
+        this.E2MOMR80 = 11; //ya * 
+        this.E2SECR61P = 12; //ya *
+        // Comando nuevos para encriptar
+        this.iv = "iv";
+        this.salt = "salt";
+        this.masterKey = "passphrase";
+    }
+    return CommandsProvider;
+}());
+CommandsProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+], CommandsProvider);
+
+//# sourceMappingURL=commands.js.map
+
+/***/ }),
+
+/***/ 684:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 96:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HttpProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+//import { UtilsProvider } from '../../providers/utils/utils';
+/*
+  Generated class for the HttpProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var HttpProvider = (function () {
+    function HttpProvider(http /*, public utils: UtilsProvider*/) {
+        this.http = http; /*, public utils: UtilsProvider*/
+        //path : string = 'https://randomuser.me/api/?results=25';  
+        //ip : string ='http://192.168.10.236:8080/';     //hernan SMART
+        //ip : string ='https://192.168.10.236:8181/';     //hernan SMART   ********************    
+        //ip : string ='https://190.144.107.213:8181/';    // URL Expuesta
+        //ip : string ='https://192.168.10.31:8181/';    // URL paso mary luz
+        //ip : string ='https://181.49.197.20:8181/';     //Hector CERTIFICACION PUBLICA 
+        //ip : string ='http://181.49.197.19:8090/';     // URL EXPUESTA   ********************    
+        //ip : string ='https://192.168.1.51:8181/';     //Hector CERTIFICACION PUBLICA      
+        //ip : string ='http://hosthernandavid.bounceme.net:8090/';                  
+        //ip : string =    'https://192.168.10.149:8181/'; // may Smart
+        //ip: string = 'http://10.10.1.31:8080/' ///****** ESTA ES LA QUE ESTA */
+        //urlDevice: string = 'http://10.10.1.136:8090/app_auth/';
+        // ip : string =  'https://app.entitid.com/';  // nuevo ambiente posgrest
+        this.ip = 'https://192.168.10.12:8181/'; //Hector CERTIFICACION 
+        //---------------------------------------------------------------------------
+        //ip : string =  'https://app.entitid.com/';  // nuevo ambiente posgrest
+        // ip : string ='https://181.49.197.20:8181/';    // CertificaciÃ³n  
+        //ip: string = 'https://192.168.10.254:8181/'; // Giovanni Smart
+        // ip : string = 'http://192.168.10.236:8097/'; //hernan
+        //----------------------------------------------------------------------------
+        //ip : string = 'http://demohb.inttegrio-aws.com/'; //AMBIENTE AWS ALLIANCE
+        /*
+            AMBIENTE CERTIFICACION
+            https://192.168.10.98:8181/HOMEBANKING/initAppn1.start()
+            
+            Usuario = hprimos
+            Clave   = zxcvbnm+4
+        */
+        this.urlDevice = this.ip + 'app_auth/';
+        //urlDevice: string = this.ip+'';
+        // E1F // HOMEBANKING
+        //   http://10.10.1.30:8080/E1F/ServletController?CMD=APPLOGIN&CH=APP&LNG=en_us&E2EW=null%20%BALogin%20%BA%20%BAE2NCNR01%20%BAnull%20%BA%BA%20&PAR=1%20%BA%20%BAHGONZALEZ%20%BAzxcvbnm4@
+        //'APPLOGIN&CH=APP&LNG=en_us&E2EW=null'+separator+'Login'+separator+separator+'E2NCNR01'+separator+'null'+separator+separator+'PAR='+company+separator+separator+user+separator+passw;
+        this.iv = "";
+        this.salt = "";
+        this.passphrase = "";
+        this.idkey = "";
+        this.ivDefault = "";
+        this.saltDefault = "";
+        this.passphraseDefault = "";
+        this.idkeyDefault = "";
+    }
+    HttpProvider.prototype.callServer = function (json, urlData) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        //headers.append('Access-Control-Allow-Origin', '*');
+        //headers.append('Access-Control-Allow-Origin-Methods', 'POST, GET, OPTIONS, PUT',);
+        headers.append('Accept', 'application/json');
+        //headers.append('apiKey', 'jsfonseca');
+        headers.append('Content-type', 'application/json');
+        //headers.append('IV', this.iv);
+        //headers.append('SALT', this.salt);
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = JSON.stringify(json);
+        return this.http
+            .post(this.urlDevice + urlData, body, options)
+            .map(function (res) { return res.json(); }, function (err) {
+            console.log(err);
+        })
+            .toPromise();
+    };
+    HttpProvider.prototype.callServerValidateE2E = function (json, urlData) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        //headers.append('Access-Control-Allow-Origin', '*');
+        //headers.append('Access-Control-Allow-Origin-Methods', 'POST, GET, OPTIONS, PUT',);
+        headers.append('Accept', 'application/json');
+        //headers.append('apiKey', 'jsfonseca');
+        headers.append('Content-type', 'application/json');
+        headers.append('iv', this.iv);
+        headers.append('salt', this.salt);
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = JSON.stringify(json);
+        return this.http
+            .post(this.urlDevice + urlData, body, options)
+            .map(function (res) { return res.json(); }, function (err) {
+            console.log(err);
+        })
+            .toPromise();
+    };
+    HttpProvider.prototype.callServerP = function () {
+        console.log("mensaje=> CallServerKEY");
+        console.log("mensaje=>entro");
+        // this.utils.reload();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Accept', 'application/json');
+        headers.append('Content-type', 'application/json');
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = JSON.stringify({ "typekey": "D" });
+        return this.http
+            .post(this.urlDevice + 'device/deviceSetup/', body, options).timeout(300000)
+            .map(function (res) { return res.json(); }, function (err) {
+            alert("Error en el llamado \n" + JSON.stringify(err));
+        })
+            .toPromise();
+    };
+    return HttpProvider;
+}());
+HttpProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] /*, public utils: UtilsProvider*/])
+], HttpProvider);
+
+//# sourceMappingURL=http.js.map
+
+/***/ })
+
+},[323]);
+//# sourceMappingURL=main.js.map

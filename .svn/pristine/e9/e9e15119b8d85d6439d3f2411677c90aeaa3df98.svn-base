@@ -1,0 +1,2 @@
+# Referenced at D:\PYT\development\work_HB_2019\auth_2019\authApp\platforms\android\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:69
+-keep class android.support.multidex.MultiDexApplication { <init>(); }

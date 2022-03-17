@@ -1,0 +1,474 @@
+webpackJsonp([12],{
+
+/***/ 699:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GcPageModule", function() { return GcPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gc__ = __webpack_require__(715);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(95);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var GcPageModule = (function () {
+    function GcPageModule() {
+    }
+    return GcPageModule;
+}());
+GcPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_2__gc__["a" /* GcPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__gc__["a" /* GcPage */]),
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */]
+        ],
+    })
+], GcPageModule);
+
+//# sourceMappingURL=gc.module.js.map
+
+/***/ }),
+
+/***/ 715:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GcPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_utils_utils__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_dba_dba__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_http_http__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_push___ = __webpack_require__(166);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the GcPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var GcPage = (function () {
+    function GcPage(/*private device: Device,*/ loading, navCtrl, navParams, storage, utils, http, dba, menuCtrl, alertCtrl, push, platform) {
+        //metodo solo de prueba
+        //var grid = "694ACGHJKLOV123456A611A353K341T391U191Y626X745G167S769L141H829N314L541M857N186Y451P713W571Q881W166Q796N576T721P236Q396Y284U971Y918Y671H812S214H591I925Y197E311R556I287Y111P993V113P949C323S193V368N598V289A115A988R791T191D581Q911Q831E135";
+        //this.grilla = this.getGrilla(grid);
+        var _this = this;
+        this.loading = loading;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.storage = storage;
+        this.utils = utils;
+        this.http = http;
+        this.dba = dba;
+        this.menuCtrl = menuCtrl;
+        this.alertCtrl = alertCtrl;
+        this.push = push;
+        this.platform = platform;
+        this.urlInbox = "auth/getDataGC/";
+        this.grilla = new Array();
+        this.isBtnEnabled = false;
+        // Metodo que escucha el llamado de las notificaciones push
+        platform.ready().then(function () {
+            _this.notificacionPush();
+        });
+        //Metodo para cuando se le de back al celular cierre la app y lo envie al login
+        this.utils.outApp("LoginPage");
+        //Obtención del userName - Ya viene encriptado
+        this.storage.get('userName').then(function (val) {
+            if (val != null) {
+                _this.userName = val;
+            }
+        });
+        //Obtención del messageId - PROVIENE DEL LOGIN
+        /*this.storage.get('MESSAGEID').then((val) => {
+         if(val != null){
+           this.messageId = val;
+         }
+       });
+     
+       this.storage.get('msgjsessionId').then((val) => {
+         if (val != null) {
+           this.msgjsessionId = val;
+         }
+       });*/
+        /*this.dba.getStatusDataBase().subscribe(rdy =>{
+          this.dba.searchGrilla();
+        })*/
+    }
+    GcPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        //Obtención del userName - Ya viene encriptado
+        this.storage.get('userName').then(function (val) {
+            //alert("userName: "+val);
+            if (val != null) {
+                var aesUtil = new AesUtil(128, 1000);
+                // Se encripta el usuario con el nuevo encript que paso hernan 2019
+                _this.userName = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, val);
+                _this.dba.searchGrilla().then(function (idFinger) {
+                    _this.queryGrillaBD = idFinger;
+                    console.log("mensaje=>" + _this.queryGrillaBD);
+                    if (_this.queryGrillaBD == null || _this.queryGrillaBD == undefined || _this.queryGrillaBD == "") {
+                        //alert("entro 1");
+                        //this.getDataGC();//Call to services auth, organizar string a un arreglo y asignacion a this.grilla
+                        _this.storage.get('MESSAGEID').then(function (val) {
+                            if (val != null) {
+                                _this.messageId = val;
+                                _this.storage.get('msgjsessionId').then(function (val) {
+                                    if (val != null) {
+                                        _this.msgjsessionId = val;
+                                    }
+                                    _this.getDataGC();
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        //Organizar cadena para pintar
+                        _this.grilla = _this.getGrilla(_this.queryGrillaBD);
+                        //alert("grilla: "+this.queryGrillaBD);
+                    }
+                });
+            }
+        });
+    };
+    //metodo para Tarjeta de Coordenadas obtener grilla
+    GcPage.prototype.getDataGC = function () {
+        var _this = this;
+        this.loadingPage = this.loading.create({});
+        this.loadingPage.present();
+        // this.dba.createDataBaseFile();
+        this.storage.get('userName').then(function (val) {
+            if (val != null) {
+                //this.userName = val;
+                var aesUtil = new AesUtil(128, 1000);
+                // Se encripta el usuario con el nuevo encript que paso hernan 2019
+                _this.userName = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, val);
+                var latitud;
+                var longitud;
+                // Obtencion de la longitud y la latitud de la persona
+                _this.storage.get('latitud').then(function (lat) {
+                    _this.storage.get('longitud').then(function (lon) {
+                        if (lat != null && lon != null) {
+                            latitud = lat;
+                            longitud = lon;
+                        }
+                    });
+                });
+                /* var newModel: string = this.utils.changePuntoComa(this.device.model);
+         
+                 var data = '{"iddev":"' + this.device.uuid + '",' +
+                             '"model":"' + newModel + '",' +
+                             '"cordova":"' + this.device.cordova + '",' +
+                             '"plataform":"' + this.device.platform + '",' +
+                             '"version":"' + this.device.version + '",' +
+                             '"manufacturer":"' + this.device.manufacturer + '",' +
+                             '"serial":"' + this.device.serial + '",' +
+                             '"isVirtual":"' + this.device.isVirtual + '"}';
+                 
+                 var deviceDATA = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, data);*/
+                var data = _this.utils.infoDevice();
+                var deviceDATA = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, JSON.stringify(data));
+                //Datos del dispositivo
+                _this.jsonDataDevice =
+                    {
+                        "userName": _this.userName,
+                        "messageId": _this.messageId,
+                        "msgjsessionId": _this.msgjsessionId,
+                        "keyMessage": "key1234",
+                        "device": {
+                            "iddev": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.utils.deviceId)
+                        },
+                        "authType": "AUTH",
+                        "reasonCalled": "auth_getGC",
+                        "scoreRiskCustomer": "0",
+                        "geoRefLatitude": latitud,
+                        "geoRefLongitude": longitud,
+                        "deviceTrustId": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.utils.deviceId),
+                        "deviceTrustData": deviceDATA
+                    };
+                //alert("Datos a enviar GC"+JSON.stringify(this.jsonDataDevice));
+                _this.http.callServer(_this.jsonDataDevice, _this.urlInbox).then(function (res) {
+                    _this.loadingPage.dismiss();
+                    _this.message = JSON.stringify(res);
+                    //alert("peticion de GC: "+this.message);
+                    if (res.messageId != null || res.messageId != "") {
+                        _this.storage.set('MESSAGEID', res.messageId);
+                        _this.storage.set('msgjsessionId', res.msgjsessionId);
+                    }
+                    //alert("datos GC: "+this.message);
+                    _this.storage.set('gc_Grilla', res.authData);
+                    _this.grilla = _this.getGrilla(res.authData);
+                    _this.storage.set('saveGC', _this.grilla);
+                    _this.storage.set('MESSAGEID', res.messageId);
+                    _this.storage.set('msgjsessionId', res.msgjsessionId);
+                    _this.dba.guardarDatosActualizados(res.authData);
+                    try {
+                        _this.utils.errorControl(res.message.code);
+                    }
+                    catch (error) {
+                        _this.utils.presentAlert("mensajeErrorControlado" + error);
+                    }
+                }, function (error) {
+                    _this.loadingPage.dismiss();
+                    if (error) {
+                        _this.utils.presentAlert("mensajePeticion" + error);
+                        _this.storage.clear();
+                        _this.utils.clearVariableSesion();
+                        _this.navCtrl.setRoot("LoginPage");
+                    }
+                });
+            }
+        });
+        return this.grilla;
+    };
+    GcPage.prototype.getGrilla = function (gridCardData) {
+        var strHeigth = gridCardData.charAt(0);
+        var strWidth = gridCardData.charAt(1);
+        var strCharQua = gridCardData.charAt(2);
+        var gridCardData = gridCardData.substring(3);
+        var strTitleCols = gridCardData.substring(0, strWidth);
+        //alert(strTitleCols)
+        var gridCardData = gridCardData.substring(strWidth);
+        var strTitleRows = gridCardData.substring(0, strHeigth);
+        //alert(strTitleRows);
+        var gridCardData = gridCardData.substring(strHeigth);
+        var grid_card_rows = parseInt(strHeigth);
+        var grid_card_cols = parseInt(strWidth);
+        var charQuant = parseInt(strCharQua);
+        var listaRows = new Array();
+        try {
+            var paramTitleCol = new Array();
+            paramTitleCol.push(" ");
+            //Agregando  los parametros para el manejo de encabezados del dataGrid
+            for (var i = 0; i < grid_card_cols; i++) {
+                paramTitleCol.push(strTitleCols.charAt(i));
+            }
+            listaRows.push(paramTitleCol);
+            //Recorrer sacar y otener los valores de la grilla agregarlos a un list dentro del objeto GridCard
+            //Crar una lista de gridCard
+            for (var j = 0; j < grid_card_rows; j++) {
+                var rowName = strTitleRows.charAt(j);
+                var rowData = new Array();
+                rowData.push(rowName); //Posicion 0 nombre o titulo de la fila
+                for (var k = 0; k < grid_card_cols; k++) {
+                    var coord = gridCardData.substring(0, charQuant);
+                    gridCardData = gridCardData.substring(charQuant);
+                    rowData.push(coord);
+                }
+                listaRows.push(rowData);
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+        return listaRows;
+    };
+    GcPage.prototype.logout = function () {
+        this.utils.presentConfirm("LoginPage");
+    };
+    GcPage.prototype.menu = function () {
+        this.menuCtrl.toggle();
+    };
+    //Metodo para generar una nueva tarjeta de coordenadas
+    GcPage.prototype.generateNewGc = function () {
+        var _this = this;
+        this.isBtnEnabled = true; // Se bloquea el boton para no generar de nuevo una GC
+        //this.getDataGC();
+        this.storage.get('MESSAGEID').then(function (val) {
+            if (val != null) {
+                _this.messageId = val;
+                _this.storage.get('msgjsessionId').then(function (val) {
+                    if (val != null) {
+                        _this.msgjsessionId = val;
+                    }
+                    _this.getDataGC();
+                });
+            }
+        });
+        //var data = "663CDEHPX123456U61G89T46B21Y16P53W32S82H84X58N53L88G33A68K71I54X78D84U36M28G72D47X22N53S25B61P86P58I51Y33K97Q91Q65A45L81Y71";
+        //this.grilla = this.getGrilla(data);
+    };
+    // Metodo para salir de la app
+    GcPage.prototype.logoutApp = function () {
+        var _this = this;
+        //Obtención del messageId - PROVIENE DEL LOGIN
+        this.storage.get('nameUser').then(function (val) {
+            if (val != null) {
+                //alert("logout 2");
+                var aesUtil = new AesUtil(128, 1000);
+                /*  this.data = '{"iddev":"' + this.device.uuid + '",' +
+                    '"model":"' + this.device.model + '",' +
+                    '"cordova":"' + this.device.cordova + '",' +
+                    '"plataform":"' + this.device.platform + '",' +
+                    '"version":"' + this.device.version + '",' +
+                    '"manufacturer":"' + this.device.manufacturer + '",' +
+                    '"serial":"' + this.device.serial + '",' +
+                    '"isVirtual":"' + this.device.isVirtual + '"}';
+                      this.encripData = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, this.data);
+                       var iddevEnc: string = aesUtil.encrypt(this.http.salt, this.http.iv, this.http.passphrase, this.device.uuid);
+                    
+                    */
+                _this.data = _this.utils.infoDevice();
+                _this.encripData = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, JSON.stringify(_this.data));
+                var iddevEnc = aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, _this.utils.deviceId);
+                //Datos del dispositivo
+                _this.jsonDataDevice =
+                    {
+                        "userName": val,
+                        "company": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "1"),
+                        "appAuthType": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "AUTH"),
+                        "appProcess": aesUtil.encrypt(_this.http.salt, _this.http.iv, _this.http.passphrase, "I"),
+                        "device": {
+                            "data": _this.encripData,
+                            "iddev": iddevEnc
+                        }
+                    };
+                var urlLogin = "security/loginOut/";
+                _this.http.callServer(_this.jsonDataDevice, urlLogin).then(function (res) {
+                    //alert(res);
+                    _this.message = JSON.stringify(res);
+                    //alert("Respuesta Logout: "+this.message);
+                    if (res.message.code == '0000' || res.message.description == 'STATUS OK') {
+                        _this.utils.clearVariableSesion();
+                        _this.utils.logout();
+                    }
+                }, function (error) {
+                    _this.utils.presentAlert("mensajeConexion");
+                });
+            }
+        });
+    };
+    //Metodo de confirmación para logout de la app
+    GcPage.prototype.presentConfirm = function () {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: this.utils.getMessageLanguage("logout.message"),
+            message: this.utils.getMessageLanguage("logout.titulo"),
+            buttons: [
+                {
+                    text: this.utils.getMessageLanguage("confirm.btnCancelar"),
+                    handler: function (data) {
+                        if (_this.utils.getMessageLanguage("confirm.btnCancelar")) {
+                            console.log("Salida Cancelada");
+                        }
+                    }
+                },
+                {
+                    text: this.utils.getMessageLanguage("confirm.btnAceptar"),
+                    handler: function (data) {
+                        if (_this.utils.getMessageLanguage("confirm.btnAceptar")) {
+                            _this.utils.presentLoading();
+                            _this.logoutApp();
+                        }
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    // ***************** CONFIGURACION DE NOTIFICACIONES PUSH ***********************
+    GcPage.prototype.notificacionPush = function () {
+        var _this = this;
+        var titulo;
+        var authVal;
+        var authCod;
+        var mensaje;
+        // comprobamos los permisos
+        this.push.hasPermission()
+            .then(function (res) {
+            if (res.isEnabled) {
+                //alert('We have permission to send push notifications'); 
+            }
+            else {
+                //alert('We do not have permission to send push notifications');
+            }
+        });
+        // inicializamos la configuración para android y ios
+        var options = {
+            android: {
+                senderID: '663636742494',
+                //foreground: 'true',
+                forceShow: true,
+                sound: 'true'
+            },
+            ios: {
+                alert: true,
+                badge: true,
+                sound: 'false'
+            },
+            windows: {}
+        };
+        var pushObject = this.push.init(options);
+        pushObject.on('notification').subscribe(function (notification) {
+            titulo = notification.title;
+            var notificacion = notification.message;
+            var temp1;
+            var temp2;
+            authVal = notificacion.slice(0, 2);
+            temp1 = notificacion.split(" ");
+            temp2 = temp1[0].split();
+            authCod = temp1[0].slice(2);
+            var zz = notificacion.split(":");
+            mensaje = zz[1];
+            _this.navCtrl.push("PushPage", { title: titulo, codOtp: authCod, msg: mensaje });
+        });
+        pushObject.on('registration').subscribe(function (registration) {
+            var registrationId = registration.registrationId;
+            var tk = registrationId;
+        });
+        pushObject.on('error').subscribe(function (error) {
+            console.error('Error with Push plugin', error);
+        });
+    };
+    GcPage.prototype.devolverse = function () {
+        this.navCtrl.push("BandejaMenuPage");
+    };
+    GcPage.prototype.reiniciarSesion = function () {
+        this.utils.reload();
+    };
+    return GcPage;
+}());
+GcPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-gc',template:/*ion-inline-start:"D:\PYT\development2\AppAuthenticator\src\pages\gc\gc.html"*/'<ion-header>\n    <!--\n  <ion-navbar hideBackButton>\n    \n    <button ion-button menu-toggle (click)="menu()">\n      <ion-icon name="menu"></ion-icon>\n    </button> \n    <div id="logo"></div>\n    <div id="logOut" (click)="presentConfirm()"></div>\n\n  </ion-navbar>\n-->\n</ion-header>\n\n\n<ion-content class="todo" (ionScroll)="reiniciarSesion()" (click)="reiniciarSesion()">\n\n    <!--\n  <ion-label class="ttlProductOverView">{{ \'gc.titulo\' | translate }}</ion-label>\n  <br>\n  <table *ngFor="let Rgrid of grilla; let i=index" class="tablaGrilla" border="1">\n    <tbody>\n      <tr>\n        <td *ngFor="let Cgrid of Rgrid" [ngClass]="{\'td_color2\' : i == 0}">\n          {{ Cgrid }}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  <br>\n  <div id="contenedorBtn">\n    <button ion-button outline (click)="generateNewGc()" id="primerBoton" [disabled]="isBtnEnabled">{{ \'tk.new\' | translate }}</button>\n  </div>\n-->\n\n    <ion-img style="width: 280px;\n                  height: 60px; \n                  left: 15%;\n                  top: 40px;    \n                  position: absolute;\n                  margin-left: auto;\n                  margin:10px;\n                  display:block; \n                  background: #F0F2F4;" src="assets/img/new/LOGO.svg">\n    </ion-img>\n\n    <br><br><br><br><br><br><br><br><br>\n\n    <ion-card>\n        <ion-card-content>\n\n            <ion-scroll scrollX style="height:400px;">\n\n                <table>\n                    <tr>\n                        <td>\n                            <span class="devolver" (click)="devolverse()">\n                <ion-img src="assets/img/new/BANDEJA_DEVOLVERSE.svg"></ion-img>\n              </span>\n                            <span class="otp">\n            <!--<ion-img src="assets/img/new/BANDEJA_TC.svg"></ion-img>-->  \n                <div id="gridCardTC"></div>\n              </span>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>\n                            <div class="texto">\n                                {{ \'gc.titulo\' | translate }}\n                            </div>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>\n                            <!-- Empieza -->\n\n                            <table *ngFor="let Rgrid of grilla; let i=index" class="tablaGrilla">\n                                <tbody>\n                                    <tr class="gc">\n                                        <td *ngFor="let Cgrid of Rgrid" [ngClass]="{\'td_color2\' : i == 0}">\n                                            <!--<ion-card>\n                        <ion-card-content>-->\n                                            <div class="gc">\n                                                {{ Cgrid }}\n                                            </div>\n                                            <!--</ion-card-content>\n                      </ion-card>-->\n                                        </td>\n                                    </tr>\n                                </tbody>\n                            </table>\n\n                            <!-- Termina -->\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>\n                            <div id="contenedorBtn">\n                                <button ion-button outline (click)="generateNewGc()" id="primerBoton" [disabled]="isBtnEnabled" style="box-shadow: 0px 0px 5px 1px white;">{{ \'tk.new\' | translate }}</button>\n                            </div>\n                        </td>\n                    </tr>\n                </table>\n\n            </ion-scroll>\n\n        </ion-card-content>\n    </ion-card>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\PYT\development2\AppAuthenticator\src\pages\gc\gc.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3__providers_utils_utils__["a" /* UtilsProvider */], __WEBPACK_IMPORTED_MODULE_5__providers_http_http__["a" /* HttpProvider */],
+        __WEBPACK_IMPORTED_MODULE_4__providers_dba_dba__["a" /* DbaProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_push___["a" /* Push */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]])
+], GcPage);
+
+//# sourceMappingURL=gc.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=12.js.map
