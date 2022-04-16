@@ -27,78 +27,14 @@ export class MyApp {
   //rootPage = 'InboxPage';
   //private navCtrl: NavController;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, 
-              private translateService: TranslateService, public sqlite: SQLite, public push: Push, private storage: Storage,
-              public tasksService: TasksServiceProvider,public  app: App, public alertCtrl: AlertController, private geolocation: Geolocation, public http:HttpProvider,
+  constructor(public statusBar: StatusBar, public splashScreen: SplashScreen, 
+              public sqlite: SQLite, public push: Push,
+              public tasksService: TasksServiceProvider,public  app: App, public alertCtrl: AlertController, public http:HttpProvider,
               public utils: UtilsProvider){
 
     //this.navCtrl = app.getActiveNav();
 
-    this.platform.ready().then(() => {
-      //Language
-      this.translateService.setDefaultLang('en_us');
-      this.translateService.use('en_us');
-
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-
-      this.geolocation.getCurrentPosition().then((resp) => {
-        
-        this.storage.set('latitud', resp.coords.latitude);
-        this.storage.set('longitud', resp.coords.longitude);
-        
-      }).catch((error) => {
-        
-        this.storage.set('latitud', 0);
-        this.storage.set('longitud', 0);
-      });
-
-      this.push.hasPermission()
-           .then(res => {
-             //alert("res"+res)
-             if (res.isEnabled) {
-               //alert('We have permission to send push notifications'); 
-             } else {
-               //alert('We do not have permission to send push notifications');
-             }
-           });
-
-            // inicializamos la configuraciÃ³n para android y ios
-         const options: PushOptions = {
-          android: {
-            senderID: '663636742494',
-            //foreground: 'true',
-            forceShow: true,
-            sound: 'true'
-          },
-          ios: {
-            alert: true,
-            badge: true,
-            sound: 'false'
-          },
-          windows: {}
-        };
-
-        const pushObject: PushObject = this.push.init(options);
-
-        pushObject.on('notification').subscribe((notification: any) => {
-          this.storage.set('pushMensaje', notification);
-        });
-        
-        pushObject.on('registration').subscribe((registration: any) => {
-          const registrationId = registration.registrationId;
-          this.storage.set('pushID', registrationId);
-
-        });
-
-        pushObject.on('error').subscribe(error => {
-          console.error('Error with Push plugin', error)
-        });
-
-      
-
-    });
-
+   
     this.http.callServerP().then(res => {
       console.log("mensaje=>Respuesta : "+JSON.stringify(res));
 
