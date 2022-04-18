@@ -1,0 +1,30 @@
+.content-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 30px;
+
+  p {
+    text-align: center;
+  }
+}
+
+button {
+  box-shadow: 4px 13px 20px -1px rgba(91,61,173,0.3);
+  border-radius: 47px;
+  padding: 17px;
+  color: #fff;
+  font-size: 20px;
+}
+
+button.login {
+  background: #08226e;
+  margin-bottom: 20px;
+}
+
+button.signUp {
+  background: #fff;
+  color: #08226e;
+  margin-bottom: 20px;
+}
+

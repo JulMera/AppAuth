@@ -1,0 +1,73 @@
+.todo.mainContent {
+  .scroll-content {
+    justify-content: space-evenly;
+  }
+
+  &::before {
+    content: '';
+    top: -154px;
+  }
+
+  .card {
+    flex-basis: 33%;
+
+    .card-content {
+      border-left: 0;
+      justify-self: center;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .logo {
+    width: 138px;
+    position: relative;
+    bottom: 84px;
+  }
+}
+
+ion-chip.chip-md {
+  color: #08226e;
+  font-weight: 900;
+  background: #fff;
+  box-shadow: inset 3px 4px 7px -1px #a0a0a0;
+  width: 60%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+button.generarCod {
+  border-radius: 31px;
+  padding: 10px;
+  color: #fff;
+  font-size: 14px;
+  background: #08226e;
+  margin-bottom: 20px;
+}
+
+
+.progress-bar {
+  background-color: #fff;
+  height: 20px;
+  width: 80%;
+  padding-bottom: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: inset 3px 4px 7px -1px #a0a0a0;
+  border-radius: 20px;
+
+  span {
+    text-align: center;
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    background-color: #08226e;
+    transition: width 0.4s ease-in-out;
+  }
+}

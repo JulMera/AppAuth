@@ -21,7 +21,6 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    top: -125;
   }
 
   .card {
@@ -79,6 +78,7 @@
       background: #ecedf1;
       border-radius: 20px;
       box-shadow: 4px 13px 20px -1px rgba(91,61,173,0.3);
+      text-transform: capitalize;
 
 
       .button-inner {
@@ -87,4 +87,5 @@
     }
   }
 }
+
 
