@@ -10,12 +10,19 @@
 
   .card {
     flex-basis: 33%;
+    padding: 0;
 
     .card-content {
       border-left: 0;
       justify-self: center;
       display: flex;
       flex-direction: column;
+    }
+
+    .card-header {
+      img {
+        width: 17px;
+      }
     }
   }
 
@@ -24,27 +31,26 @@
     position: relative;
     bottom: 84px;
   }
-}
 
-ion-chip.chip-md {
-  color: #08226e;
-  font-weight: 900;
-  background: #fff;
-  box-shadow: inset 3px 4px 7px -1px #a0a0a0;
-  width: 60%;
-  text-align: center;
-  margin-top: 20px;
-}
+  ion-chip.chip-md {
+    color: #08226e;
+    font-weight: 900;
+    background: #fff;
+    box-shadow: inset 3px 4px 7px -1px #a0a0a0;
+    width: 60%;
+    text-align: center;
+    margin-top: 20px;
+  }
 
-button.generarCod {
-  border-radius: 31px;
-  padding: 10px;
-  color: #fff;
-  font-size: 14px;
-  background: #08226e;
-  margin-bottom: 20px;
+  button.generarCod {
+    border-radius: 31px;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+    background: #08226e;
+    margin-bottom: 20px;
+  }
 }
-
 
 .progress-bar {
   background-color: #fff;

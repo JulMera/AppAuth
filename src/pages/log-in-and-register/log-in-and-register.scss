@@ -1,30 +1,57 @@
-.content-buttons {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 30px;
 
-  p {
-    text-align: center;
+.todo {
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 30px;
   }
-}
 
-button {
-  box-shadow: 4px 13px 20px -1px rgba(91,61,173,0.3);
-  border-radius: 47px;
-  padding: 17px;
-  color: #fff;
-  font-size: 20px;
-}
+  .logo {
+    background: transparent;
+    width: 119px;
+    contain: size;
+  }
 
-button.login {
-  background: #08226e;
-  margin-bottom: 20px;
-}
 
-button.signUp {
-  background: #fff;
-  color: #08226e;
-  margin-bottom: 20px;
+  &::before {
+    content: '';
+    background: url('../../assets/imgs/purpleShape.png') no-repeat;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 30px;
+
+    p {
+      text-align: center;
+    }
+  }
+
+  button {
+    box-shadow: 4px 13px 20px -1px rgba(91,61,173,0.3);
+    border-radius: 47px;
+    padding: 17px;
+    color: #fff;
+    font-size: 20px;
+  }
+
+  button.login {
+    background: #08226e;
+    margin-bottom: 20px;
+  }
+
+  button.signUp {
+    background: #fff;
+    color: #08226e;
+    margin-bottom: 20px;
+  }
 }
 
