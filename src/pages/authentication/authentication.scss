@@ -1,4 +1,6 @@
 .todo.mainContent {
+  font-family: 'Nunito', sans-serif;
+
   .scroll-content {
     justify-content: space-evenly;
   }
@@ -6,17 +8,36 @@
   &::before {
     content: '';
     top: -154px;
+    background: url('../../assets/imgs/purpleShape.png') no-repeat;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
 
   .card {
-    flex-basis: 33%;
+    flex-basis: 28%;
     padding: 0;
+    margin: 0;
+    border-radius: 18px;
+    width: 100%;
+
+    @media screen and (max-width: 360px) {
+      flex-basis: 40%;
+    }
+
+    @media screen and (max-width: 375px) {
+      flex-basis: 35%;
+    }
 
     .card-content {
+      background: transparent;
+      height: 100%;
       border-left: 0;
       justify-self: center;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
     }
 
     .card-header {
@@ -27,12 +48,13 @@
   }
 
   .logo {
+    background: transparent;
     width: 138px;
     position: relative;
     bottom: 84px;
   }
 
-  ion-chip.chip-md {
+  ion-chip, .chip-md {
     color: #08226e;
     font-weight: 900;
     background: #fff;
