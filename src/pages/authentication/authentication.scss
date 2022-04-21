@@ -3,6 +3,10 @@
 
   .scroll-content {
     justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 30px;
   }
 
   &::before {
@@ -49,9 +53,10 @@
 
   .logo {
     background: transparent;
-    width: 138px;
+    width: 106px;
     position: relative;
     bottom: 84px;
+    contain: size;
   }
 
   ion-chip, .chip-md {
