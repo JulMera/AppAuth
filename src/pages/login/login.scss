@@ -11,6 +11,7 @@
     background: transparent;
     width: 119px;
     contain: size;
+    margin-bottom: 26px;
   }
 
 
@@ -29,6 +30,7 @@
     flex-basis: 67%;
     padding: 16px 20px;
     width: 100%;
+    overflow: hidden;
 
 
     .card-content {
@@ -37,7 +39,8 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: flex-start;
+      overflow-y: scroll;
     }
   }
 
@@ -58,7 +61,7 @@
   }
 
   .form-login {
-    margin-top: 30px;
+    margin-top: 15px;
 
     .item {
       display: flex;
@@ -77,12 +80,15 @@
     margin: 23px auto;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     button {
       background: #ecedf1;
       border-radius: 50px;
       box-shadow: 4px 13px 20px -1px rgba(91,61,173,0.3);
       text-transform: capitalize;
+      width: 50%;
+      height: 37px;
 
 
       .button-inner {

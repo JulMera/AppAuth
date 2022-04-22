@@ -1,5 +1,5 @@
 <ion-header></ion-header>
-<ion-content class="todo" scroll-y="false">
+<ion-content class="todo" >
     <ion-img class="logo" src="assets/imgs/amiLogo.svg"></ion-img>
     <ion-card>
         <ion-card-content>
@@ -18,11 +18,10 @@
                         </div>
                     </div>
                     <div *ngIf="contenedorBtn" class="contenedorBtn">
-                        <button ion-button (click)="callKeysDevice('login')" id="btnLogin" [disabled]="!isBtnEnabled">{{ 'Login.iniciar' | translate }}</button>
+                        <button ion-button (click)="callKeysDevice('login')" id="btnLogin" [disabled]="!isBtnEnabled">Login</button>
                     </div>
                 </div>
-            </div>
-            <!-- Se muestra si el finger en por huella -->
+                <!-- Se muestra si el finger en por huella -->
             <div (click)="callKeysDevice('huella')">
                 <p style="margin: auto" style="text-align: center; color: #323232;">{{ 'Login.finger' | translate }}</p>
                 <ion-img src="assets/img/new/INICIO_HUELLA.svg" style="width: 60px; height: 60px;  margin:10px auto; display:block; background-color: transparent;">
@@ -35,6 +34,7 @@
                 <p style="margin: auto" style="text-align: center; color: #323232;">{{ 'Login.face' | translate }}</p>
                 <ion-img src="assets/img/new/INICIO_ROSTRO.svg" style="width: 60px; height: 60px;  margin:10px auto; display:block; background-color: transparent;">
                 </ion-img>
+            </div>
             </div>
         </ion-card-content>
     </ion-card>
